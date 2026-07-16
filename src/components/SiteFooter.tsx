@@ -40,16 +40,14 @@ export function SiteFooter() {
 
         <div>
           <div className="eyebrow">Headquarters</div>
-          <address className="mt-5 not-italic text-sm leading-relaxed text-[var(--color-ink)]/80">
-            No 96, Medirigiriya,<br />
-            Polonnaruwa, Sri Lanka
-          </address>
-          <div className="mt-4 text-sm text-[var(--color-ink)]/80">
+          <div className="mt-5 text-sm text-[var(--color-ink)]/80">
+            <span className="block text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">Official Mail</span>
             <a href="mailto:info.bellanadbaby.com" className="hover:text-[var(--color-ink)]">
               info.bellanadbaby.com
             </a>
           </div>
           <div className="mt-4 text-sm text-[var(--color-ink)]/80">
+            <span className="block text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">Domain Gateway</span>
             <a href="https://www.bellanbaby.shop" className="hover:text-[var(--color-ink)]">
               www.bellanbaby.shop
             </a>
@@ -57,9 +55,8 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-[var(--color-ink)]/10">
-        <div className="mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-2 px-6 py-6 text-[11px] uppercase tracking-[0.28em] text-[var(--color-taupe)] md:flex-row md:items-center md:px-10">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-center px-6 py-6 text-[11px] uppercase tracking-[0.28em] text-[var(--color-taupe)] md:px-10">
           <span>Copyright © 2026 Bella &amp; Baby. All rights reserved.</span>
-          <span>Curated in Polonnaruwa · Read in America</span>
         </div>
       </div>
     </footer>
