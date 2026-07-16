@@ -22,7 +22,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
 
         const articleEntries: Entry[] = posts
-          .map((p) => {
+          .map((p): Entry | null => {
             const slug = getSlugForPost(p.id);
             if (!slug) return null;
             return { path: `/journal/${slug}`, changefreq: "monthly", priority: "0.8" };
