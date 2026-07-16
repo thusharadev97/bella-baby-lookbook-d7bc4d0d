@@ -1,5 +1,6 @@
 import { Instagram, Linkedin, Facebook } from "lucide-react";
 import { trending } from "@/data/posts";
+import founderAsset from "@/assets/founder.jpg.asset.json";
 
 export function Sidebar() {
   return (
@@ -9,8 +10,8 @@ export function Sidebar() {
         <div className="mt-6 flex items-center gap-4">
           <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[var(--color-blush)]/40">
             <img
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80"
-              alt="Thushara Sanjeewa"
+              src={founderAsset.url}
+              alt="Thushara Sanjeewa — Founder & Editor-in-Chief, Bella & Baby"
               className="h-full w-full object-cover"
             />
           </div>
@@ -22,8 +23,8 @@ export function Sidebar() {
           </div>
         </div>
         <p className="mt-6 text-sm leading-relaxed text-[var(--color-ink)]/70">
-          Curating a slow, considered lens on contemporary kids fashion from Polonnaruwa
-          to Manhattan — one editorial at a time.
+          Curating a slow, considered lens on contemporary kids and baby fashion for the
+          modern global family — one seasonal edit at a time.
         </p>
         <div className="mt-6 flex gap-3 text-[var(--color-ink)]/60">
           <a href="https://www.linkedin.com/in/thushara-webdev" aria-label="LinkedIn" className="rounded-full border border-[var(--color-ink)]/15 p-2 transition-all hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]">
