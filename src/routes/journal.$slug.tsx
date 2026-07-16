@@ -2,7 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
 import { getArticleBySlug, getSlugForPost, readingMinutes } from "@/data/articles";
-import { posts } from "@/data/posts";
+import { posts, type Post } from "@/data/posts";
+import type { Article } from "@/data/articles";
 import founderAsset from "@/assets/founder.jpg.asset.json";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 
@@ -92,7 +93,7 @@ export const Route = createFileRoute("/journal/$slug")({
 });
 
 function JournalArticle() {
-  const { article, post } = Route.useLoaderData();
+  const { article, post } = Route.useLoaderData() as { article: Article; post: Post };
   const minutes = readingMinutes(article);
 
   const idx = posts.findIndex((p) => p.id === post.id);

@@ -16,6 +16,7 @@ import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
@@ -52,6 +53,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalSlugRoute = JournalSlugRouteImport.update({
+  id: '/journal/$slug',
+  path: '/journal/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/trends': typeof TrendsRoute
+  '/journal/$slug': typeof JournalSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/trends': typeof TrendsRoute
+  '/journal/$slug': typeof JournalSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/trends': typeof TrendsRoute
+  '/journal/$slug': typeof JournalSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/trends'
+    | '/journal/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/trends'
+    | '/journal/$slug'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/trends'
+    | '/journal/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   LookbookRoute: typeof LookbookRoute
   PrivacyRoute: typeof PrivacyRoute
   TrendsRoute: typeof TrendsRoute
+  JournalSlugRoute: typeof JournalSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal/$slug': {
+      id: '/journal/$slug'
+      path: '/journal/$slug'
+      fullPath: '/journal/$slug'
+      preLoaderRoute: typeof JournalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   LookbookRoute: LookbookRoute,
   PrivacyRoute: PrivacyRoute,
   TrendsRoute: TrendsRoute,
+  JournalSlugRoute: JournalSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
