@@ -1,4 +1,6 @@
 import type { Post } from "@/data/posts";
+import { Link } from "@tanstack/react-router";
+import { getSlugForPost } from "@/data/articles";
 
 const aspectClass: Record<Post["aspect"], string> = {
   portrait: "aspect-[3/4]",
@@ -8,9 +10,14 @@ const aspectClass: Record<Post["aspect"], string> = {
 };
 
 export function PostCard({ post }: { post: Post }) {
+  const slug = getSlugForPost(post.id);
   return (
     <article className="group mb-8 break-inside-avoid">
-      <div className={`relative overflow-hidden bg-[var(--color-ink)]/5 ${aspectClass[post.aspect]}`}>
+      <Link
+        to="/journal/$slug"
+        params={{ slug: slug ?? "" }}
+        className={`relative block overflow-hidden bg-[var(--color-ink)]/5 ${aspectClass[post.aspect]}`}
+      >
         <img
           src={post.image}
           alt={post.title}
@@ -21,16 +28,20 @@ export function PostCard({ post }: { post: Post }) {
         <div className="absolute left-4 top-4 rounded-full bg-[var(--color-cream)]/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--color-ink)] backdrop-blur-sm">
           {post.category}
         </div>
-      </div>
+      </Link>
       <div className="mt-5">
         <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em] text-[var(--color-taupe)]">
           <span>{post.date}</span>
           <span className="h-px w-6 bg-[var(--color-taupe)]/50" />
           <span>{post.tags[0]}</span>
         </div>
-        <h3 className="mt-3 font-display text-2xl leading-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-ink)]/70">
+        <Link
+          to="/journal/$slug"
+          params={{ slug: slug ?? "" }}
+          className="mt-3 block font-display text-2xl leading-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-taupe)]"
+        >
           {post.title}
-        </h3>
+        </Link>
         <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink)]/65">
           {post.snippet}
         </p>
@@ -44,6 +55,13 @@ export function PostCard({ post }: { post: Post }) {
             </span>
           ))}
         </div>
+        <Link
+          to="/journal/$slug"
+          params={{ slug: slug ?? "" }}
+          className="mt-5 inline-block text-[10px] uppercase tracking-[0.28em] text-[var(--color-ink)] underline underline-offset-[6px] decoration-[var(--color-taupe)]/50 hover:decoration-[var(--color-ink)]"
+        >
+          Read the edit →
+        </Link>
       </div>
     </article>
   );
