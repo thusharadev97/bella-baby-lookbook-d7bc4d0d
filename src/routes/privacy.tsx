@@ -19,6 +19,7 @@ const sections = [
   { id: "use", title: "How We Use Information" },
   { id: "cookies", title: "Cookies & Analytics" },
   { id: "third", title: "Third-Party Services" },
+  { id: "adsense", title: "Google AdSense & Advertising" },
   { id: "children", title: "Children's Privacy (COPPA)" },
   { id: "rights", title: "Your Rights (CCPA / CPRA)" },
   { id: "contact", title: "Contact" },
@@ -102,6 +103,27 @@ function Privacy() {
             </p>
           </div>
 
+          <div id="adsense">
+            <h2 className="font-display text-3xl text-[var(--color-ink)]">Google AdSense &amp; Advertising</h2>
+            <p className="mt-4">
+              Bella &amp; Baby uses Google AdSense, a third-party advertising service, to
+              display ads. Google, as a third-party vendor, uses cookies (including the
+              DoubleClick DART cookie) to serve ads based on prior visits to this and
+              other websites. Google's use of advertising cookies enables it and its
+              partners to serve ads to our readers based on their visit to our site
+              and other sites on the Internet.
+            </p>
+            <p className="mt-4">
+              You may opt out of personalized advertising by visiting
+              {" "}<a className="underline" href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>{" "}
+              or opt out of a third-party vendor's use of cookies for personalized
+              advertising by visiting
+              {" "}<a className="underline" href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a>.
+              For more information about how Google uses data, please see the
+              {" "}<a className="underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google Privacy &amp; Terms</a>.
+            </p>
+          </div>
+
           <div id="children">
             <h2 className="font-display text-3xl text-[var(--color-ink)]">Children's Privacy (COPPA)</h2>
             <p className="mt-4">
@@ -124,8 +146,7 @@ function Privacy() {
           <div id="contact">
             <h2 className="font-display text-3xl text-[var(--color-ink)]">Contact</h2>
             <p className="mt-4">
-              Questions about this policy? Write to <a className="underline" href="mailto:info.bellanadbaby.com">info.bellanadbaby.com</a> or by post to
-              No 96, Medirigiriya, Polonnaruwa, Sri Lanka.
+              Questions about this policy? Write to <a className="underline" href="mailto:info@bellanbaby.shop">info@bellanbaby.shop</a>. Bella &amp; Baby is an independent digital publication serving readers across the United States.
             </p>
           </div>
         </div>
