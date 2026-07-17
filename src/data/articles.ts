@@ -16,11 +16,14 @@ export type ArticleSection = {
   table?: ArticleTable;
 };
 
+export type ArticleFAQ = { q: string; a: string };
+
 export type Article = {
   id: number;
   dek: string;
   metaDescription: string;
   sections: ArticleSection[];
+  faqs?: ArticleFAQ[];
   editorsNote: string;
   closing: string;
 };
@@ -57,6 +60,8 @@ export const readingMinutes = (a: Article) => {
         s.paragraphs.reduce((m, p) => m + p.split(/\s+/).length, 0) +
         (s.h3Paragraphs?.reduce((m, p) => m + p.split(/\s+/).length, 0) ?? 0),
       0,
-    ) + a.closing.split(/\s+/).length;
+    ) +
+    (a.faqs?.reduce((n, f) => n + f.a.split(/\s+/).length + f.q.split(/\s+/).length, 0) ?? 0) +
+    a.closing.split(/\s+/).length;
   return Math.max(4, Math.round(words / 220));
 };
