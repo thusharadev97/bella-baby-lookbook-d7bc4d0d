@@ -22,6 +22,50 @@ export const Route = createFileRoute("/journal/$slug")({
     const { article, post } = loaderData;
     const title = `${post.title} — Bella & Baby`;
     const url = `/journal/${params.slug}`;
+    const ldScripts: Array<{ type: string; children: string }> = [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: article.metaDescription,
+          image: [post.image],
+          datePublished: post.date,
+          dateModified: post.date,
+          author: {
+            "@type": "Person",
+            name: "Thushara Sanjeewa",
+            jobTitle: "Founder & Editor-in-Chief",
+            url: "https://www.bellanbaby.shop/about",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Bella & Baby",
+            url: "https://www.bellanbaby.shop",
+            logo: { "@type": "ImageObject", url: "https://www.bellanbaby.shop/favicon.ico" },
+          },
+          mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.bellanbaby.shop${url}` },
+          articleSection: post.category,
+          keywords: post.tags.join(", "),
+          inLanguage: "en-US",
+        }),
+      },
+    ];
+    if (article.faqs && article.faqs.length > 0) {
+      ldScripts.push({
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: article.faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      });
+    }
     return {
       meta: [
         { title },
@@ -40,42 +84,7 @@ export const Route = createFileRoute("/journal/$slug")({
         { name: "twitter:image", content: post.image },
       ],
       links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: article.metaDescription,
-            image: [post.image],
-            datePublished: post.date,
-            dateModified: post.date,
-            author: {
-              "@type": "Person",
-              name: "Thushara Sanjeewa",
-              jobTitle: "Founder & Editor-in-Chief",
-              url: "https://www.bellanbaby.shop/about",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Bella & Baby",
-              url: "https://www.bellanbaby.shop",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://www.bellanbaby.shop/favicon.ico",
-              },
-            },
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://www.bellanbaby.shop${url}`,
-            },
-            articleSection: post.category,
-            keywords: post.tags.join(", "),
-            inLanguage: "en-US",
-          }),
-        },
-      ],
+      scripts: ldScripts,
     };
   },
   component: JournalArticle,
@@ -101,6 +110,8 @@ function JournalArticle() {
   const next = idx < posts.length - 1 ? posts[idx + 1] : null;
   const prevSlug = prev ? getSlugForPost(prev.id) : null;
   const nextSlug = next ? getSlugForPost(next.id) : null;
+  const slugifyH2 = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
   return (
     <PageShell>
@@ -158,9 +169,37 @@ function JournalArticle() {
         {/* Body */}
         <div className="mx-auto mt-20 grid max-w-[1200px] gap-16 px-6 pb-20 md:grid-cols-12 md:px-10">
           <div className="md:col-span-8 md:col-start-3">
+            {/* Table of Contents */}
+            <FadeIn>
+              <nav
+                aria-label="Table of contents"
+                className="mb-14 border border-[var(--color-ink)]/10 bg-white/60 p-6 md:p-8"
+              >
+                <div className="eyebrow">In This Edit</div>
+                <ol className="mt-4 space-y-2 text-[15px] text-[var(--color-ink)]/80">
+                  {article.sections.map((s, i) => (
+                    <li key={i}>
+                      <a
+                        href={`#${slugifyH2(s.h2)}`}
+                        className="hover:text-[var(--color-ink)] hover:underline"
+                      >
+                        {String(i + 1).padStart(2, "0")} · {s.h2}
+                      </a>
+                    </li>
+                  ))}
+                  {article.faqs && article.faqs.length > 0 && (
+                    <li>
+                      <a href="#faq" className="hover:text-[var(--color-ink)] hover:underline">
+                        {String(article.sections.length + 1).padStart(2, "0")} · Frequently Asked Questions
+                      </a>
+                    </li>
+                  )}
+                </ol>
+              </nav>
+            </FadeIn>
             {article.sections.map((s, i) => (
               <FadeIn key={i}>
-                <section className="mb-14">
+                <section id={slugifyH2(s.h2)} className="mb-14 scroll-mt-28">
                   <h2 className="font-display text-3xl leading-tight text-[var(--color-ink)] md:text-4xl">
                     {s.h2}
                   </h2>
@@ -242,6 +281,30 @@ function JournalArticle() {
                 </section>
               </FadeIn>
             ))}
+
+            {/* FAQ */}
+            {article.faqs && article.faqs.length > 0 && (
+              <FadeIn>
+                <section id="faq" className="mb-16 scroll-mt-28 border-t border-[var(--color-ink)]/10 pt-12">
+                  <div className="eyebrow">Frequently Asked</div>
+                  <h2 className="mt-4 font-display text-3xl leading-tight text-[var(--color-ink)] md:text-4xl">
+                    Parent Questions, Answered
+                  </h2>
+                  <dl className="mt-8 divide-y divide-[var(--color-ink)]/10 border-y border-[var(--color-ink)]/10">
+                    {article.faqs.map((f, i) => (
+                      <div key={i} className="py-6">
+                        <dt className="font-display text-xl text-[var(--color-ink)]">
+                          {f.q}
+                        </dt>
+                        <dd className="mt-3 text-[16px] leading-[1.75] text-[var(--color-ink)]/85">
+                          {f.a}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              </FadeIn>
+            )}
 
             {/* Editor's Note */}
             <FadeIn>
