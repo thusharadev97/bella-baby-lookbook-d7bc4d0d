@@ -2,7 +2,14 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
 import founderAsset from "@/assets/founder.jpg.asset.json";
-import { getEditorialBySlug, EDITORIALS, type Block, type Editorial } from "@/data/editorials10";
+import { AdSenseSlot } from "@/components/AdSenseSlot";
+import {
+  getEditorialBySlug,
+  relatedEditorials,
+  editorialWordCount,
+  type Block,
+  type Editorial,
+} from "@/data/editorials10";
 
 export const Route = createFileRoute("/editorial/$slug")({
   loader: ({ params }) => {
@@ -108,12 +115,49 @@ function ImagePrompt({ text }: { text: string }) {
   );
 }
 
+const anchorId = (t: string) =>
+  t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
 function renderBlock(block: Block, i: number) {
   switch (block.type) {
     case "h2":
-      return <h2 key={i} className="h2">{block.text}</h2>;
+      return <h2 key={i} id={anchorId(block.text)} className="h2 scroll-mt-28">{block.text}</h2>;
     case "h3":
-      return <h3 key={i} className="h3">{block.text}</h3>;
+      return <h3 key={i} id={anchorId(block.text)} className="h3 scroll-mt-28">{block.text}</h3>;
+    case "h4":
+      return (
+        <h4 key={i} className="mt-8 font-display text-lg tracking-tight text-[var(--color-ink)]">
+          {block.text}
+        </h4>
+      );
+    case "table":
+      return (
+        <FadeIn key={i}>
+          <figure className="my-10 overflow-x-auto">
+            <table className="w-full border-collapse text-left text-sm">
+              <caption className="mb-3 text-left text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">
+                {block.caption}
+              </caption>
+              <thead>
+                <tr className="border-y border-[var(--color-ink)]/20">
+                  {block.headers.map((h) => (
+                    <th key={h} className="py-3 pr-4 font-display text-[13px] font-medium">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row, r) => (
+                  <tr key={r} className="border-b border-[var(--color-ink)]/10 align-top">
+                    {row.map((cell, c) => (
+                      <td key={c} className="py-3 pr-4 leading-relaxed text-[var(--color-ink)]/80">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </figure>
+        </FadeIn>
+      );
     case "p":
       return <p key={i} className="body">{block.text}</p>;
     case "ul":
@@ -129,7 +173,11 @@ function renderBlock(block: Block, i: number) {
 
 function EditorialSlugPage() {
   const { article: a } = Route.useLoaderData() as { article: Editorial };
-  const related = EDITORIALS.filter((e) => e.slug !== a.slug).slice(0, 3);
+  const related = relatedEditorials(a.slug, 3);
+  const wordCount = editorialWordCount(a);
+  const toc = a.blocks
+    .filter((b): b is Extract<Block, { type: "h2" }> => b.type === "h2")
+    .map((b) => ({ id: anchorId(b.text), text: b.text }));
 
   return (
     <PageShell>
@@ -162,7 +210,30 @@ function EditorialSlugPage() {
 
         <ImagePrompt text={a.heroImagePrompt} />
 
+        <FadeIn>
+          <nav aria-label="Table of contents" className="my-10 border border-[var(--color-ink)]/12 bg-white/50 p-7">
+            <div className="eyebrow">In This Article</div>
+            <ol className="mt-4 space-y-2 text-sm text-[var(--color-ink)]/75">
+              {toc.map((t, i) => (
+                <li key={t.id} className="flex gap-3">
+                  <span className="text-[var(--color-taupe)]">{String(i + 1).padStart(2, "0")}</span>
+                  <a href={`#${t.id}`} className="hover:text-[var(--color-ink)] hover:underline">{t.text}</a>
+                </li>
+              ))}
+              <li className="flex gap-3">
+                <span className="text-[var(--color-taupe)]">{String(toc.length + 1).padStart(2, "0")}</span>
+                <a href="#faq" className="hover:text-[var(--color-ink)] hover:underline">Frequently Asked Questions</a>
+              </li>
+            </ol>
+            <div className="mt-5 text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">
+              {wordCount.toLocaleString()} words · {a.readMinutes} min read
+            </div>
+          </nav>
+        </FadeIn>
+
         {a.blocks.map((b: Block, i: number) => renderBlock(b, i))}
+
+        <AdSenseSlot wordCount={wordCount} slot="1234567890" />
 
         {/* Editor's Styling Note */}
         <FadeIn>
@@ -187,7 +258,7 @@ function EditorialSlugPage() {
         </FadeIn>
 
         {/* FAQ */}
-        <h2 className="h2">Frequently Asked Questions</h2>
+        <h2 id="faq" className="h2 scroll-mt-28">Frequently Asked Questions</h2>
         <dl className="mt-6 space-y-8">
           {a.faqs.map((f: { q: string; a: string }) => (
             <div key={f.q}>
