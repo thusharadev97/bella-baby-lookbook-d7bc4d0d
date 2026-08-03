@@ -5,7 +5,14 @@ export type Block =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
   | { type: "h3"; text: string }
+  | { type: "h4"; text: string }
   | { type: "ul"; items: string[] }
+  | {
+      type: "table";
+      caption: string;
+      headers: string[];
+      rows: string[][];
+    }
   | { type: "img"; prompt: string };
 
 export type Editorial = {
