@@ -1,0 +1,13 @@
+{
+  "name": "Bella & Baby",
+  "short_name": "Bella & Baby",
+  "description": "US editorial lookbook for elevated kids fashion, luxury nursery palettes, and modern family style.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#1b1b1d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
