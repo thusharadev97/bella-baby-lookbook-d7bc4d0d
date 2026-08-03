@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrendsRouteImport } from './routes/trends'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LookbookRouteImport } from './routes/lookbook'
@@ -24,6 +25,11 @@ import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/lookbook': typeof LookbookRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/trends'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/trends'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/trends'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   LookbookRoute: typeof LookbookRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   TrendsRoute: typeof TrendsRoute
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/trends'
       fullPath: '/trends'
       preLoaderRoute: typeof TrendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   LookbookRoute: LookbookRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   TrendsRoute: TrendsRoute,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
