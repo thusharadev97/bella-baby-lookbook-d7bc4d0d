@@ -1,76 +1,58 @@
-# Bella & Baby — Luxury Editorial Lookbook
+# Bella & Baby: Brand Favicon + AdSense Compliance Overhaul
 
-Build a premium, editorial-style multi-page site on the existing TanStack Start + Tailwind v4 stack. No backend needed — all content is static/mock.
+## What this fixes
 
-## Design direction
+Two rejection reasons: "Low value content" (thin pages) and "Google-served ads on screens without publisher-content". Plus the default Lovable favicon.
 
-- Aesthetic: high-end editorial magazine (think Vogue Bambini × The Row). Warm off-white background, deep ink foreground, muted taupe/blush accents, tiny gold accent.
-- Typography: serif display (Instrument Serif / Cormorant via Google Fonts `<link>` in `__root.tsx`) for headlines + clean sans (Inter) for body. High contrast, generous tracking on eyebrows.
-- Motion: subtle fade-in on scroll, gentle image hover zoom (`scale-[1.03]`), underline reveal on links. No heavy libs.
-- Imagery: Unsplash `source.unsplash.com` / curated `images.unsplash.com` URLs for kids/baby/fashion editorial shots. Varied aspect ratios to drive the masonry rhythm.
-- Layout: CSS columns-based masonry (`columns-1 sm:columns-2 lg:columns-3`) with `break-inside-avoid` cards of mixed heights — no rigid square grid.
+Verified in the current codebase:
+- `public/favicon.ico` is still the default; `__root.tsx` links only `/favicon.ico`.
+- The AdSense loader is declared under a `script:` key in the root `head()`. TanStack reads `scripts:` — so the tag is currently not emitted at all. This is fixed as part of the ad work.
+- `src/data/articles.json` (30 Journal articles): word counts range 473–2029, average ~1294. Many are well under 1,800.
+- `src/data/editorials10.ts` holds 10 editorials at roughly 800–900 words each.
+- Thin/no-content routes exist: `/trends`, `/lookbook`, `/about`, `/contact`, `/privacy`, `/disclaimer`. There is no `/terms` route, though the brief requires a visible link to it.
 
-## Routes (TanStack file-based)
+## Phase 1 — Brand favicon
 
-- `src/routes/index.tsx` — Home (replaces placeholder)
-- `src/routes/trends.tsx` — Trends listing (reuses masonry, filtered mock)
-- `src/routes/lookbook.tsx` — Full-bleed editorial lookbook gallery
-- `src/routes/about.tsx` — Brand story by Thushara Sanjeewa
-- `src/routes/contact.tsx` — Contact form (client-only, animated states) + info
-- `src/routes/privacy.tsx` — Privacy Policy (US-oriented mock statutory text)
-- `src/routes/disclaimer.tsx` — Disclaimer (US-oriented mock statutory text)
+- Generate a minimalist vector-style monogram: uppercase serif "B" in champagne-gold on deep charcoal, square, legible at 16px.
+- Ship `public/favicon.png` (64x64, padded not stretched), `public/apple-touch-icon.png` (180x180), and a maskable 512 icon plus `public/site.webmanifest`.
+- Replace the icon links in `src/routes/__root.tsx` head: `icon` (png), `apple-touch-icon`, `manifest`, `theme-color`.
+- Delete the default `public/favicon.ico` so no stale Lovable mark is served.
 
-Each route defines its own `head()` with route-specific title/description/og tags. Root `__root.tsx` gets real defaults (title "Bella & Baby — Elevated Kids Fashion & Lookbook", matching description/og/twitter), plus Google Fonts `<link>` tags. No og:image on root.
+## Phase 2 — Kill dead-end / thin screens
 
-## Components (`src/components/`)
+- Add `/terms` route with full Terms of Service copy.
+- Expand `/about` into a substantial About + E-E-A-T page (founder bio for Thushara, editorial standards, sourcing methodology, review process, contact/corrections policy) — 1,200+ words of unique prose.
+- Give `/trends` and `/lookbook` real editorial framing: intro essay, category explainers, a trend-data table, and an FAQ block, so neither is a bare grid of links.
+- Ensure `404`, `/contact`, `/privacy`, `/disclaimer`, and any dynamic route with missing data are excluded from `robots.txt`/sitemap and carry `noindex` where they are utility screens rather than content.
+- Remove the duplicate one-off route `editorial.wide-leg-trousers-2026.tsx` in favor of the dynamic `/editorial/$slug` entry (with a permanent redirect from the old URL so the published link keeps working).
 
-- `SiteHeader.tsx` — floating sticky header, wordmark "Bella & Baby", nav links (Home, Trends, Lookbook, About, Contact), animated mobile overlay (state-driven, no extra deps).
-- `SiteFooter.tsx` — 3-column footer (brand summary, quick links, HQ + email), copyright bar.
-- `Hero.tsx` — full-viewport editorial banner, seasonal US baby collection headline, eyebrow, CTA, large image with soft vignette.
-- `PostCard.tsx` — masonry card: image with hover zoom, category eyebrow, serif title, snippet, date, tag chips.
-- `MasonryGrid.tsx` — column-based masonry rendering an array of posts.
-- `Sidebar.tsx` — Author Profile (Thushara Sanjeewa, portrait, bio, Lucide social icons linking to LinkedIn `thushara-webdev`, Instagram `iam_thushara`, Facebook `daily lookbook`) + "Trending Now" keyword chips.
-- `ContactForm.tsx` — name/email/message with focus animations, submit → animated success state (local state only).
-- `SectionEyebrow.tsx`, `FadeIn.tsx` (IntersectionObserver-based reveal wrapper).
+## Phase 3 — Article depth upgrade (Journal + Editorial)
 
-## Data
+Shared article template used by both `/journal/$slug` and `/editorial/$slug`:
+- Strict H1 → H2 → H3 → H4 hierarchy.
+- Sticky in-article Table of Contents with smooth-scroll anchors generated from the H2/H3 list.
+- At least one rich data table per article (fabric composition, GOTS/OEKO-TEX rating, care guide).
+- 5-question FAQ per article, wrapped in FAQPage JSON-LD.
+- "Editor's Styling Note" callout with the founder portrait, plus Article JSON-LD carrying author/publisher for E-E-A-T.
+- Related-articles block generated by a keyword-overlap internal linking helper, using descriptive keyword anchors.
 
-- `src/data/posts.ts` — exactly 30 mock post objects `{ id, title, category, snippet, date, tags[], image, aspect }` with varied categories (Streetwear, Chic Minimalist, Global Summer, Nursery Muse, Heritage, Play Editorial, etc.), varied Unsplash URLs and aspect ratios so the masonry breathes.
-- `src/data/trending.ts` — keyword list for sidebar.
-- `src/data/author.ts` — Thushara Sanjeewa profile + socials.
+Content itself is hand-authored (your AI credits are exhausted, so no gateway generation). Every article is brought to 1,800+ words with July/August 2026 US market framing and the high-intent keyword set you listed. This is the bulk of the work: I will deliver it in batches of about 8 articles per pass and report word counts after each batch, starting with the 10 editorials, then the 30 journal pieces.
 
-## Styling
+## Phase 4 — Ad placement guard
 
-- Extend `src/styles.css` `@theme` with brand tokens: `--color-ink`, `--color-cream`, `--color-taupe`, `--color-blush`, `--color-gold`, plus `--font-display` and `--font-sans`. Load fonts via `<link>` in `__root.tsx` head (not `@import`).
-- Add small `@utility` helpers if needed (e.g. `.eyebrow` tracking); prefer Tailwind classes in JSX.
+- New `src/components/AdSenseSlot.tsx`: renders `<ins class="adsbygoogle">` only when a `wordCount` prop passed by the page clears a 1,200-word floor, the route is a real content page, and the container has a reserved fixed height (no layout shift). Otherwise it renders nothing.
+- Fix the root `head()` key from `script` to `scripts` so the AdSense loader actually loads.
+- Place slots only mid-article and below the FAQ on article routes. No ads on `/contact`, `/privacy`, `/terms`, `/disclaimer`, 404, or any utility screen.
 
-## Homepage composition
+## Phase 5 — Policy surface
 
-1. Sticky header
-2. Hero (seasonal collection)
-3. Editorial intro strip (eyebrow + serif tagline)
-4. Two-column layout: left = 30-post masonry; right = sticky sidebar (Author + Trending Now)
-5. "Lookbook teaser" full-bleed image band
-6. Newsletter-style closing band (visual only)
-7. Footer
-
-## Contact page
-
-- Address: No 96, Medirigiriya, Polonnaruwa
-- Email: info.bellanadbaby.com (used verbatim as given)
-- Form with animated focus rings + success toast-style inline confirmation.
-
-## Legal pages
-
-- Full standalone routes with elegant typography, table-of-contents style anchor list at top, US-audience-flavored mock text (jurisdiction, cookies, third-party links, no medical/professional advice, etc.).
-
-## Out of scope
-
-- No backend, no auth, no CMS, no real form submission, no analytics wiring.
+- Footer and header both expose visible, working links to Privacy Policy, Terms, and Disclaimer.
+- Privacy Policy explicitly covers Google AdSense, the DART cookie, third-party vendor cookies, and opt-out links (Google Ads Settings, aboutads.info, optout.networkadvertising.org).
+- Regenerate `sitemap.xml` from the live route/slug lists so it contains no stale or empty URLs.
 
 ## Technical notes
 
-- All new route strings match filenames per TanStack rules.
-- No `src/pages/`, no react-router-dom.
-- Every route sets `head()`; only leaf routes may add og:image (skipped here — no generated hero image required by the brief).
-- Uses only existing deps + `lucide-react` (already available). No new packages.
+- All work stays in TanStack Start file routes; metadata via each route's `head()` (title in the `meta` array), canonical on leaves only.
+- Word-count floors computed from the article data at build/render time, so the ad guard can never be out of sync with content.
+- Mobile responsiveness checked at 375px for the TOC, tables (horizontal scroll wrapper), and ad containers.
+- Verification: production build, then a headless pass over every route to confirm zero console errors and non-empty rendered text.
