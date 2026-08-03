@@ -104,7 +104,12 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="mt-auto text-[11px] uppercase tracking-[0.3em] text-[var(--color-taupe)]">
-          bellanbaby.shop
+          <div className="flex flex-wrap gap-4 tracking-[0.22em]">
+            <Link to="/privacy" onClick={() => setOpen(false)}>Privacy</Link>
+            <Link to="/terms" onClick={() => setOpen(false)}>Terms</Link>
+            <Link to="/disclaimer" onClick={() => setOpen(false)}>Disclaimer</Link>
+          </div>
+          <div className="mt-4">bellanbaby.shop</div>
         </div>
       </div>
     </header>
