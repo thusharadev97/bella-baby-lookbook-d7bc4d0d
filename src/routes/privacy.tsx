@@ -119,6 +119,9 @@ function Privacy() {
               or opt out of a third-party vendor's use of cookies for personalized
               advertising by visiting
               {" "}<a className="underline" href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a>.
+              You may also opt out of interest-based advertising from participating
+              networks at
+              {" "}<a className="underline" href="https://optout.networkadvertising.org" target="_blank" rel="noopener noreferrer">optout.networkadvertising.org</a>.
               For more information about how Google uses data, please see the
               {" "}<a className="underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google Privacy &amp; Terms</a>.
             </p>

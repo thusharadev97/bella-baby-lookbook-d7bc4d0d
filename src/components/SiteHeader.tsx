@@ -45,6 +45,7 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
+          <span className="sr-only">Main navigation</span>
           {links.map((l) => (
             <Link
               key={l.to}
@@ -57,6 +58,11 @@ export function SiteHeader() {
               <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-[var(--color-ink)] transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100" />
             </Link>
           ))}
+          <span className="flex items-center gap-4 border-l border-[var(--color-ink)]/15 pl-6 text-[10px] uppercase tracking-[0.22em] text-[var(--color-taupe)]">
+            <Link to="/privacy" className="hover:text-[var(--color-ink)]">Privacy</Link>
+            <Link to="/terms" className="hover:text-[var(--color-ink)]">Terms</Link>
+            <Link to="/disclaimer" className="hover:text-[var(--color-ink)]">Disclaimer</Link>
+          </span>
         </nav>
 
         <button
@@ -98,7 +104,12 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="mt-auto text-[11px] uppercase tracking-[0.3em] text-[var(--color-taupe)]">
-          bellanbaby.shop
+          <div className="flex flex-wrap gap-4 tracking-[0.22em]">
+            <Link to="/privacy" onClick={() => setOpen(false)}>Privacy</Link>
+            <Link to="/terms" onClick={() => setOpen(false)}>Terms</Link>
+            <Link to="/disclaimer" onClick={() => setOpen(false)}>Disclaimer</Link>
+          </div>
+          <div className="mt-4">bellanbaby.shop</div>
         </div>
       </div>
     </header>

@@ -5,7 +5,14 @@ export type Block =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
   | { type: "h3"; text: string }
+  | { type: "h4"; text: string }
   | { type: "ul"; items: string[] }
+  | {
+      type: "table";
+      caption: string;
+      headers: string[];
+      rows: string[][];
+    }
   | { type: "img"; prompt: string };
 
 export type Editorial = {
@@ -825,6 +832,47 @@ export const EDITORIALS: Editorial[] = [
     ],
   },
 ];
+
+import { DEPTH } from "./editorialDepth";
+import { DEPTH2 } from "./editorialDepth2";
+
+const ALL_DEPTH = { ...DEPTH, ...DEPTH2 };
+
+for (const e of EDITORIALS) {
+  const d = ALL_DEPTH[e.slug];
+  if (!d) continue;
+  e.blocks = [...e.blocks, ...d.blocks];
+  e.faqs = [...e.faqs, ...d.faqs];
+  e.readMinutes = Math.max(e.readMinutes, 9);
+}
+
+export function editorialWordCount(e: Editorial): number {
+  const parts: string[] = [e.lede, e.editorNote];
+  for (const b of e.blocks) {
+    if (b.type === "ul") parts.push(b.items.join(" "));
+    else if (b.type === "table") parts.push(b.caption, b.headers.join(" "), b.rows.flat().join(" "));
+    else if (b.type === "img") continue;
+    else parts.push(b.text);
+  }
+  for (const f of e.faqs) parts.push(f.q, f.a);
+  return parts.join(" ").trim().split(/\s+/).length;
+}
+
+export function relatedEditorials(slug: string, n = 3): Editorial[] {
+  const self = EDITORIALS.find((e) => e.slug === slug);
+  const words = (s: string) => new Set(s.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 4));
+  const mine = self ? words(self.keywords + " " + self.title) : new Set<string>();
+  return EDITORIALS.filter((e) => e.slug !== slug)
+    .map((e) => {
+      const theirs = words(e.keywords + " " + e.title);
+      let score = 0;
+      theirs.forEach((w) => { if (mine.has(w)) score++; });
+      return { e, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, n)
+    .map((x) => x.e);
+}
 
 export function getEditorialBySlug(slug: string): Editorial | undefined {
   return EDITORIALS.find((e) => e.slug === slug);
