@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { posts } from "@/data/posts";
 import { getSlugForPost } from "@/data/articles";
+import { ALL_EDITORIALS } from "@/data/editorialsAll";
 
 const BASE_URL = "https://www.bellanbaby.shop";
 
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/about", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.5" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
+          { path: "/terms", changefreq: "yearly", priority: "0.3" },
           { path: "/disclaimer", changefreq: "yearly", priority: "0.3" },
         ];
 
@@ -29,7 +31,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           })
           .filter((e): e is Entry => Boolean(e));
 
-        const entries = [...staticEntries, ...articleEntries];
+        const editorialEntries: Entry[] = ALL_EDITORIALS.map((e) => ({
+          path: `/editorial/${e.slug}`,
+          changefreq: "monthly",
+          priority: "0.9",
+        }));
+
+        const entries = [...staticEntries, ...editorialEntries, ...articleEntries];
         const urls = entries
           .map(
             (e) =>

@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { MasonryGrid } from "@/components/MasonryGrid";
 import { FadeIn } from "@/components/FadeIn";
 import { posts, trending } from "@/data/posts";
+import { ALL_EDITORIALS, editorialWordCount } from "@/data/editorialsAll";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/trends")({
@@ -59,6 +60,53 @@ function Trends() {
         <FadeIn>
           <MasonryGrid posts={filtered} />
         </FadeIn>
+      </section>
+
+      <section className="border-t border-[var(--color-ink)]/10 py-20">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+          <div className="eyebrow">The Editorial Library · Long Reads</div>
+          <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-5xl">
+            Deeply reported guides on{" "}
+            <span className="italic text-[var(--color-taupe)]">what to wear next</span>.
+          </h2>
+          <p className="mt-6 max-w-2xl text-[var(--color-ink)]/70">
+            Each piece below runs well past fifteen hundred words, with fabric and care
+            tables, certification detail, styling formulas, and an editor's note from our
+            founder — written for readers building a modern capsule wardrobe.
+          </p>
+
+          <ul className="mt-12 divide-y divide-[var(--color-ink)]/10 border-y border-[var(--color-ink)]/10">
+            {ALL_EDITORIALS.map((e) => (
+              <li key={e.slug}>
+                <Link
+                  to="/editorial/$slug"
+                  params={{ slug: e.slug }}
+                  className="group flex flex-col gap-2 py-7 md:flex-row md:items-baseline md:gap-8"
+                >
+                  <div className="w-56 shrink-0 text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">
+                    {e.eyebrow}
+                  </div>
+                  <div>
+                    <div className="font-display text-2xl leading-snug group-hover:italic">
+                      {e.title}{" "}
+                      {e.titleItalicTail && (
+                        <span className="italic text-[var(--color-taupe)]">
+                          {e.titleItalicTail}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]/65">
+                      {e.description}
+                    </p>
+                    <div className="mt-3 text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">
+                      {editorialWordCount(e).toLocaleString()} words · {e.readMinutes} min read
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="border-t border-[var(--color-ink)]/10 bg-white/40 py-20">

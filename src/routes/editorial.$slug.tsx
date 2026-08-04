@@ -9,7 +9,7 @@ import {
   editorialWordCount,
   type Block,
   type Editorial,
-} from "@/data/editorials10";
+} from "@/data/editorialsAll";
 
 export const Route = createFileRoute("/editorial/$slug")({
   loader: ({ params }) => {
