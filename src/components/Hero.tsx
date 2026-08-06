@@ -35,29 +35,31 @@ export function Hero() {
         </div>
 
         <div className="relative lg:col-span-7">
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-6 gap-5">
             <div className="col-span-4 aspect-[4/5] overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1200&q=80"
-                alt="Editorial cover"
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80"
+                alt="Editorial cover: model in a neutral tailored coat on a minimalist studio set"
                 className="h-full w-full object-cover transition-transform duration-[1500ms] hover:scale-105"
+                loading="eager"
               />
             </div>
-            <div className="col-span-2 flex flex-col gap-4">
+            <div className="col-span-2 flex flex-col gap-5">
               <div className="aspect-[3/4] overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=600&q=80"
-                  alt="Detail"
+                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=700&q=80"
+                  alt="Detail study: artisanal wool and leather textures in a neutral palette"
                   className="h-full w-full object-cover transition-transform duration-[1500ms] hover:scale-105"
                 />
               </div>
-              <div className="flex-1 overflow-hidden bg-[var(--color-blush)]/40 p-5">
+              <div className="flex flex-1 flex-col justify-between overflow-hidden bg-[var(--color-blush)]/40 p-6">
                 <div className="eyebrow">Issue No. 07</div>
-                <div className="mt-4 font-display text-2xl leading-tight text-[var(--color-ink)]">
-                  Sun, salt, and soft linens.
+                <div className="mt-5 font-display text-[26px] leading-[1.15] tracking-tight text-[var(--color-ink)]">
+                  Chocolate brown,<br />
+                  <span className="italic text-[var(--color-taupe)]">regal violet.</span>
                 </div>
-                <div className="mt-6 text-[10px] uppercase tracking-[0.28em] text-[var(--color-ink)]/60">
-                  30 stories inside →
+                <div className="mt-7 text-[10px] uppercase tracking-[0.28em] text-[var(--color-ink)]/60">
+                  50 stories inside →
                 </div>
               </div>
             </div>
