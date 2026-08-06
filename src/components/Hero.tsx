@@ -3,21 +3,20 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] w-full overflow-hidden bg-[var(--color-cream)] pt-24">
-      <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 pt-10 md:px-10 lg:grid-cols-12 lg:gap-16 lg:pt-16">
+    <section className="relative min-h-[92vh] w-full overflow-hidden bg-[var(--color-cream)] pt-28">
+      <div className="mx-auto grid max-w-[1400px] items-center gap-14 px-6 pt-12 md:px-10 lg:grid-cols-12 lg:gap-20 lg:pt-20">
         <div className="lg:col-span-5">
-          <div className="eyebrow">The Summer '26 Issue</div>
-          <h1 className="mt-6 font-display text-[52px] leading-[1.02] tracking-tight text-[var(--color-ink)] sm:text-[68px] lg:text-[84px]">
-            An American<br />
-            <span className="italic text-[var(--color-taupe)]">summer,</span><br />
-            softly told.
+          <div className="eyebrow">The Fall '26 Issue · Vol. 07</div>
+          <h1 className="mt-7 max-w-[15ch] font-display text-[44px] leading-[1.06] tracking-[-0.02em] text-[var(--color-ink)] text-balance sm:text-[56px] lg:text-[68px] xl:text-[76px]">
+            The New Era of{" "}
+            <span className="italic text-[var(--color-taupe)]">Quiet Luxury</span>
           </h1>
-          <p className="mt-8 max-w-md text-base leading-relaxed text-[var(--color-ink)]/70">
-            A seasonal edit of contemporary kids and baby style — from Sag Harbor
-            linen mornings to Silver Lake weekends. Curated for the family that
-            dresses on purpose.
+          <p className="mt-8 max-w-[46ch] text-[17px] leading-[1.75] text-[var(--color-ink)]/65">
+            Effortless style, curated for the modern wardrobe — tailored
+            silhouettes, neutral outerwear, and artisanal textures, studied by our
+            editors from Aspen to Sag Harbor.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-6">
+          <div className="mt-11 flex flex-wrap items-center gap-8">
             <Link
               to="/lookbook"
               className="group inline-flex items-center gap-3 bg-[var(--color-ink)] px-7 py-4 text-[11px] uppercase tracking-[0.3em] text-[var(--color-cream)] transition-transform hover:-translate-y-0.5"
