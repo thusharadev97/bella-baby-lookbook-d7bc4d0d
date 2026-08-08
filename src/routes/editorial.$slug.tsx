@@ -3,6 +3,8 @@ import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
 import founderAsset from "@/assets/founder.jpg.asset.json";
 import { AdSenseSlot } from "@/components/AdSenseSlot";
+import { EditorialImage } from "@/components/EditorialImage";
+import { resolveEditorialImage } from "@/data/editorialImages";
 import {
   getEditorialBySlug,
   relatedEditorials,
@@ -22,6 +24,7 @@ export const Route = createFileRoute("/editorial/$slug")({
     if (!a) return { meta: [{ title: "Editorial — Bella & Baby" }] };
     const url = `https://www.bellanbaby.shop/editorial/${a.slug}`;
     const fullTitle = `${a.title}${a.titleItalicTail ? " " + a.titleItalicTail : ""}`;
+    const hero = resolveEditorialImage(a.heroImagePrompt, a.slug, "hero");
     return {
       meta: [
         { title: `${fullTitle} — Bella & Baby` },
@@ -32,11 +35,13 @@ export const Route = createFileRoute("/editorial/$slug")({
         { property: "og:title", content: fullTitle },
         { property: "og:description", content: a.description },
         { property: "og:url", content: url },
+        { property: "og:image", content: hero.src },
         { property: "article:author", content: "Thushara Sanjeewa" },
         { property: "article:section", content: "Women's Fashion" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: fullTitle },
         { name: "twitter:description", content: a.description },
+        { name: "twitter:image", content: hero.src },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -59,6 +64,7 @@ export const Route = createFileRoute("/editorial/$slug")({
             },
             datePublished: a.datePublished,
             dateModified: a.datePublished,
+            image: hero.src,
             mainEntityOfPage: url,
             articleSection: "Women's Fashion",
             keywords: a.keywords,
@@ -102,23 +108,10 @@ export const Route = createFileRoute("/editorial/$slug")({
   ),
 });
 
-function ImagePrompt({ text }: { text: string }) {
-  return (
-    <FadeIn>
-      <figure className="my-10 border border-dashed border-[var(--color-taupe)]/50 bg-white/40 p-6">
-        <div className="eyebrow">Editorial Image · Prompt</div>
-        <p className="mt-3 text-sm italic leading-relaxed text-[var(--color-ink)]/70">
-          {text}
-        </p>
-      </figure>
-    </FadeIn>
-  );
-}
-
 const anchorId = (t: string) =>
   t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-function renderBlock(block: Block, i: number) {
+function renderBlock(block: Block, i: number, seed: string) {
   switch (block.type) {
     case "h2":
       return <h2 key={i} id={anchorId(block.text)} className="h2 scroll-mt-28">{block.text}</h2>;
@@ -167,7 +160,7 @@ function renderBlock(block: Block, i: number) {
         </ul>
       );
     case "img":
-      return <ImagePrompt key={i} text={block.prompt} />;
+      return <EditorialImage key={i} note={block.prompt} seed={`${seed}-${i}`} />;
   }
 }
 
@@ -208,7 +201,7 @@ function EditorialSlugPage() {
           </div>
         </FadeIn>
 
-        <ImagePrompt text={a.heroImagePrompt} />
+        <EditorialImage note={a.heroImagePrompt} seed={a.slug} variant="hero" />
 
         <FadeIn>
           <nav aria-label="Table of contents" className="my-10 border border-[var(--color-ink)]/12 bg-white/50 p-7">
@@ -231,7 +224,7 @@ function EditorialSlugPage() {
           </nav>
         </FadeIn>
 
-        {a.blocks.map((b: Block, i: number) => renderBlock(b, i))}
+        {a.blocks.map((b: Block, i: number) => renderBlock(b, i, a.slug))}
 
         <AdSenseSlot wordCount={wordCount} slot="1234567890" />
 
