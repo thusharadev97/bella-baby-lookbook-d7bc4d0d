@@ -403,14 +403,5 @@ function EditorialPage() {
 }
 
 function ImagePrompt({ text }: { text: string }) {
-  return (
-    <figure className="my-10 border border-dashed border-[var(--color-taupe)]/50 bg-[var(--color-ink)]/[0.02] p-6">
-      <figcaption className="eyebrow text-[var(--color-taupe)]">
-        Image Prompt
-      </figcaption>
-      <p className="mt-3 text-sm italic leading-relaxed text-[var(--color-ink)]/75">
-        {text}
-      </p>
-    </figure>
-  );
+  return <EditorialImage note={text} seed={`wide-leg-trousers-2026-${text.length}`} />;
 }
