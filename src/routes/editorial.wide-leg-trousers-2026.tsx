@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
+import { EditorialImage } from "@/components/EditorialImage";
 import founderAsset from "@/assets/founder.jpg.asset.json";
 
 const TITLE =
