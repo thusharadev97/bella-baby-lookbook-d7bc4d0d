@@ -18,7 +18,7 @@ import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TrendsCountryRouteImport } from './routes/trends.$country'
+import { Route as TrendsCountryRouteImport } from './routes/trends_.$country'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/editorial.wide-leg-trousers-2026'
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
@@ -69,9 +69,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrendsCountryRoute = TrendsCountryRouteImport.update({
-  id: '/$country',
-  path: '/$country',
-  getParentRoute: () => TrendsRoute,
+  id: '/trends_/$country',
+  path: '/trends/$country',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const JournalSlugRoute = JournalSlugRouteImport.update({
   id: '/journal/$slug',
@@ -99,7 +99,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRouteWithChildren
+  '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
@@ -114,7 +114,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRouteWithChildren
+  '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
@@ -130,11 +130,11 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRouteWithChildren
+  '/trends': typeof TrendsRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
-  '/trends/$country': typeof TrendsCountryRoute
+  '/trends_/$country': typeof TrendsCountryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,7 +181,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
-    | '/trends/$country'
+    | '/trends_/$country'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -193,10 +193,11 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
-  TrendsRoute: typeof TrendsRouteWithChildren
+  TrendsRoute: typeof TrendsRoute
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
   JournalSlugRoute: typeof JournalSlugRoute
+  TrendsCountryRoute: typeof TrendsCountryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -264,12 +265,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trends/$country': {
-      id: '/trends/$country'
-      path: '/$country'
+    '/trends_/$country': {
+      id: '/trends_/$country'
+      path: '/trends/$country'
       fullPath: '/trends/$country'
       preLoaderRoute: typeof TrendsCountryRouteImport
-      parentRoute: typeof TrendsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/journal/$slug': {
       id: '/journal/$slug'
@@ -295,17 +296,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface TrendsRouteChildren {
-  TrendsCountryRoute: typeof TrendsCountryRoute
-}
-
-const TrendsRouteChildren: TrendsRouteChildren = {
-  TrendsCountryRoute: TrendsCountryRoute,
-}
-
-const TrendsRouteWithChildren =
-  TrendsRoute._addFileChildren(TrendsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -315,10 +305,11 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
-  TrendsRoute: TrendsRouteWithChildren,
+  TrendsRoute: TrendsRoute,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
   JournalSlugRoute: JournalSlugRoute,
+  TrendsCountryRoute: TrendsCountryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
