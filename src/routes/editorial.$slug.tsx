@@ -3,6 +3,8 @@ import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
 import founderAsset from "@/assets/founder.jpg.asset.json";
 import { AdSenseSlot } from "@/components/AdSenseSlot";
+import { EditorialImage } from "@/components/EditorialImage";
+import { resolveEditorialImage } from "@/data/editorialImages";
 import {
   getEditorialBySlug,
   relatedEditorials,
@@ -22,6 +24,7 @@ export const Route = createFileRoute("/editorial/$slug")({
     if (!a) return { meta: [{ title: "Editorial — Bella & Baby" }] };
     const url = `https://www.bellanbaby.shop/editorial/${a.slug}`;
     const fullTitle = `${a.title}${a.titleItalicTail ? " " + a.titleItalicTail : ""}`;
+    const hero = resolveEditorialImage(a.heroImagePrompt, a.slug, "hero");
     return {
       meta: [
         { title: `${fullTitle} — Bella & Baby` },
@@ -32,11 +35,13 @@ export const Route = createFileRoute("/editorial/$slug")({
         { property: "og:title", content: fullTitle },
         { property: "og:description", content: a.description },
         { property: "og:url", content: url },
+        { property: "og:image", content: hero.src },
         { property: "article:author", content: "Thushara Sanjeewa" },
         { property: "article:section", content: "Women's Fashion" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: fullTitle },
         { name: "twitter:description", content: a.description },
+        { name: "twitter:image", content: hero.src },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -59,6 +64,7 @@ export const Route = createFileRoute("/editorial/$slug")({
             },
             datePublished: a.datePublished,
             dateModified: a.datePublished,
+            image: hero.src,
             mainEntityOfPage: url,
             articleSection: "Women's Fashion",
             keywords: a.keywords,
