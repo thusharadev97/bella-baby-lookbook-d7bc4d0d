@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      newsletter_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          source: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          source?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
+      trending_keywords: {
+        Row: {
+          aesthetic_tag: string
+          color_palette: string
+          country: string
+          created_at: string
+          id: string
+          keyword: string
+          last_updated: string
+          search_intent: string
+          silhouette: string
+        }
+        Insert: {
+          aesthetic_tag: string
+          color_palette: string
+          country: string
+          created_at?: string
+          id?: string
+          keyword: string
+          last_updated?: string
+          search_intent: string
+          silhouette: string
+        }
+        Update: {
+          aesthetic_tag?: string
+          color_palette?: string
+          country?: string
+          created_at?: string
+          id?: string
+          keyword?: string
+          last_updated?: string
+          search_intent?: string
+          silhouette?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
