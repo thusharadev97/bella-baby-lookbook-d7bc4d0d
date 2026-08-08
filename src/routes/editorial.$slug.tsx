@@ -108,23 +108,10 @@ export const Route = createFileRoute("/editorial/$slug")({
   ),
 });
 
-function ImagePrompt({ text }: { text: string }) {
-  return (
-    <FadeIn>
-      <figure className="my-10 border border-dashed border-[var(--color-taupe)]/50 bg-white/40 p-6">
-        <div className="eyebrow">Editorial Image · Prompt</div>
-        <p className="mt-3 text-sm italic leading-relaxed text-[var(--color-ink)]/70">
-          {text}
-        </p>
-      </figure>
-    </FadeIn>
-  );
-}
-
 const anchorId = (t: string) =>
   t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-function renderBlock(block: Block, i: number) {
+function renderBlock(block: Block, i: number, seed: string) {
   switch (block.type) {
     case "h2":
       return <h2 key={i} id={anchorId(block.text)} className="h2 scroll-mt-28">{block.text}</h2>;
@@ -173,7 +160,7 @@ function renderBlock(block: Block, i: number) {
         </ul>
       );
     case "img":
-      return <ImagePrompt key={i} text={block.prompt} />;
+      return <EditorialImage key={i} note={block.prompt} seed={`${seed}-${i}`} />;
   }
 }
 
@@ -214,7 +201,7 @@ function EditorialSlugPage() {
           </div>
         </FadeIn>
 
-        <ImagePrompt text={a.heroImagePrompt} />
+        <EditorialImage note={a.heroImagePrompt} seed={a.slug} variant="hero" />
 
         <FadeIn>
           <nav aria-label="Table of contents" className="my-10 border border-[var(--color-ink)]/12 bg-white/50 p-7">
@@ -237,7 +224,7 @@ function EditorialSlugPage() {
           </nav>
         </FadeIn>
 
-        {a.blocks.map((b: Block, i: number) => renderBlock(b, i))}
+        {a.blocks.map((b: Block, i: number) => renderBlock(b, i, a.slug))}
 
         <AdSenseSlot wordCount={wordCount} slot="1234567890" />
 
