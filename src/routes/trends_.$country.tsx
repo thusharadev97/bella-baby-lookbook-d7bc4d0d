@@ -10,7 +10,7 @@ import { getTrendingKeywords } from "@/lib/trends.functions";
 import { getRegion, REGIONS } from "@/data/regions";
 import { relatedEditorials } from "@/data/editorialsAll";
 
-export const Route = createFileRoute("/trends/$country")({
+export const Route = createFileRoute("/trends_/$country")({
   loader: ({ params }) => {
     const region = getRegion(params.country);
     if (!region) throw notFound();

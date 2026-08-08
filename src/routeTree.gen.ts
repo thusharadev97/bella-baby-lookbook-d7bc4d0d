@@ -18,6 +18,7 @@ import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrendsCountryRouteImport } from './routes/trends.$country'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/editorial.wide-leg-trousers-2026'
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
@@ -67,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrendsCountryRoute = TrendsCountryRouteImport.update({
+  id: '/$country',
+  path: '/$country',
+  getParentRoute: () => TrendsRoute,
+} as any)
 const JournalSlugRoute = JournalSlugRouteImport.update({
   id: '/journal/$slug',
   path: '/journal/$slug',
@@ -93,10 +99,11 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRoute
+  '/trends': typeof TrendsRouteWithChildren
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,10 +114,11 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRoute
+  '/trends': typeof TrendsRouteWithChildren
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,10 +130,11 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trends': typeof TrendsRoute
+  '/trends': typeof TrendsRouteWithChildren
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/trends/$country'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/trends/$country'
   id:
     | '__root__'
     | '/'
@@ -170,6 +181,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/trends/$country'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -181,7 +193,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
-  TrendsRoute: typeof TrendsRoute
+  TrendsRoute: typeof TrendsRouteWithChildren
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
   JournalSlugRoute: typeof JournalSlugRoute
@@ -252,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trends/$country': {
+      id: '/trends/$country'
+      path: '/$country'
+      fullPath: '/trends/$country'
+      preLoaderRoute: typeof TrendsCountryRouteImport
+      parentRoute: typeof TrendsRoute
+    }
     '/journal/$slug': {
       id: '/journal/$slug'
       path: '/journal/$slug'
@@ -276,6 +295,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface TrendsRouteChildren {
+  TrendsCountryRoute: typeof TrendsCountryRoute
+}
+
+const TrendsRouteChildren: TrendsRouteChildren = {
+  TrendsCountryRoute: TrendsCountryRoute,
+}
+
+const TrendsRouteWithChildren =
+  TrendsRoute._addFileChildren(TrendsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -285,7 +315,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
-  TrendsRoute: TrendsRoute,
+  TrendsRoute: TrendsRouteWithChildren,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
   JournalSlugRoute: JournalSlugRoute,
