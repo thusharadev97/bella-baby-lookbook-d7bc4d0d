@@ -2,8 +2,14 @@
   "redirects": [
     {
       "source": "/api/auth",
-      "destination": "https://github.com/login/oauth/authorize?client_id=Ov23li253ujV6NyQzym4&scope=repo,user&redirect_uri=https://www.bellanbaby.shop/api/auth/callback",
+      "destination": "https://github.com/login/oauth/authorize?client_id=Ov23li253ujV6NyQzym4&scope=repo,user&redirect_uri=https://www.bellanbaby.shop/api/auth/callback.html",
       "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/auth/callback",
+      "destination": "/api/auth/callback.html"
     }
   ]
 }
