@@ -2,6 +2,8 @@ backend:
   name: github
   repo: thusharadev97/bella-baby-lookbook-d7bc4d0d
   branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: /auth
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
