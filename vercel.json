@@ -1,12 +1,9 @@
 {
-  "routes": [
+  "redirects": [
     {
-      "src": "/admin/config.yml",
-      "dest": "/admin/config.yml"
-    },
-    {
-      "src": "/api/auth",
-      "dest": "https://github.com/login/oauth/authorize?client_id=Ov23li253ujV6NyQzym4&scope=repo,user&redirect_uri=https://www.bellanbaby.shop/api/auth/callback"
+      "source": "/api/auth",
+      "destination": "https://github.com/login/oauth/authorize?client_id=Ov23li253ujV6NyQzym4&scope=repo,user&redirect_uri=https://www.bellanbaby.shop/api/auth/callback",
+      "permanent": false
     }
   ]
 }
