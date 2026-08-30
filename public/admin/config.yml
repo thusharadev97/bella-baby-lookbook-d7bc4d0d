@@ -16,5 +16,8 @@ collections:
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Author", name: "author", widget: "string", default: "Thushara Sanjeewa" }
       - { label: "Featured Image", name: "image", widget: "image" }
+      - { label: "SEO Meta Title", name: "metaTitle", widget: "string", required: false }
+      - { label: "SEO Meta Description", name: "metaDescription", widget: "text", required: false }
+      - { label: "SEO Keywords", name: "keywords", widget: "string", required: false }
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
