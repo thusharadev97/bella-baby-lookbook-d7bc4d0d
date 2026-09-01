@@ -1,37 +1,34 @@
-# Blog engine + 5 new deep-research editorials
+# Blog powered by Sanity + Blog nav item
 
 ## What you get
 
-- A real **Blog** link in the site header, next to Trends / Lookbook.
-- `/blog` becomes a live index that reads every markdown file in `src/content/blog/` — including anything published from the CMS admin panel — and shows it in a chronological editorial grid (cover image, title, date, author, excerpt, keyword tags).
-- `/blog/{slug}` renders the full article with Vogue-style typography, an auto-generated Table of Contents, FAQ accordion, founder byline, affiliate disclosure, and SEO/JSON-LD metadata.
-- 5 new 1,500+ word articles written straight into `src/content/blog/` so they appear on the index alongside CMS posts.
+- A **Blog** item in the site header (and mobile menu), linking to `/blog`.
+- `/blog` — a luxury editorial grid that fetches posts live from your Sanity project (`ktdhlkkl` / `production`): cover image, title, category, date, excerpt.
+- `/blog/{slug}` — full article view with Vogue-style typography, auto-generated Table of Contents, author card for Thushara Sanjeewa, FAQ section, and SEO + JSON-LD metadata.
 
-## Blog plumbing
+## Sanity setup
 
-Currently `src/routes/blog.tsx` has one hard-coded post and its own header/footer, and the single markdown file in `src/content/blog/` is never read. Replacement:
+- Install `@sanity/client` and `@sanity/image-url`.
+- `src/integrations/sanity/client.ts` — client with `projectId: "ktdhlkkl"`, `dataset: "production"`, `useCdn: true`, a recent `apiVersion`, plus a `urlFor()` image helper for responsive cover/hero images.
+- `src/integrations/sanity/queries.ts` — one query for the index list (ordered by publish date, newest first) and one for a single post by slug, dereferencing author and category and pulling the body.
+- Before writing queries I'll connect the Sanity MCP connector to read your actual schema, so field names (`body` vs `content`, category shape, FAQ fields) match your dataset instead of being guessed. If a field I expect isn't there, I'll adapt the query and tell you what I mapped.
+- **You'll need to allowlist this app's origin** in Sanity (`sanity.io/manage` → project → API → CORS origins), otherwise browser requests return 403. If the MCP connector is available I can add it for you.
 
-- `src/data/blogPosts.ts` — loads markdown at build time with `import.meta.glob('/src/content/blog/*.md', { query: '?raw', eager: true })`, parses YAML front matter (title, date, author, image, metaTitle, metaDescription, keywords, excerpt) and body, derives the slug from the filename (strips the `YYYY-MM-DD-` prefix), sorts newest first, and computes word count + reading time.
-- Markdown → HTML: a small in-project renderer (headings, paragraphs, lists, bold/italic, links, blockquotes, tables) so no runtime dependency is added and output is fully SSR-safe. Headings get stable IDs to drive the TOC.
-- `src/routes/blog.tsx` — index page using `PageShell` (shared header/footer, so the standalone chrome and duplicate nav are removed), masonry/grid cards, per-route `head()` metadata.
-- `src/routes/blog.$slug.tsx` — article view: hero image, TOC from H2/H3, prose body, FAQ section with `FAQPage` + `Article` JSON-LD, `AdSenseSlot` gated by the existing 1,200-word rule, `AffiliateDisclosure`, related-reading links into `/trends` and `/lookbook`. Unknown slug → `notFound()` with a noindex head.
-- `SiteHeader` nav gets `{ to: "/blog", label: "Blog" }`; the sitemap route picks up all blog slugs.
-- Any post whose front-matter `image` is missing or empty falls back to the curated Unsplash pool in `src/data/editorialImages.ts`, so no broken frames and no prompt text ever renders.
+## Pages
 
-## The 5 articles
+- `src/routes/blog.tsx` — index. Uses the shared `PageShell` (existing header/footer) instead of the current one-off chrome, replacing today's hard-coded single-post placeholder. Data via TanStack Query with a route loader prefetch; skeleton state while loading, and a graceful empty/error state (with a CORS hint if the request is rejected).
+- `src/routes/blog.$slug.tsx` — article. Loader fetches by slug, `notFound()` + noindex head for unknown slugs. Renders:
+  - hero cover image (Sanity image pipeline, responsive `srcSet`), falling back to the curated Unsplash pool in `src/data/editorialImages.ts` when a post has no cover;
+  - Portable Text body rendered with the site's editorial prose styles (headings get stable IDs);
+  - sticky Table of Contents built from H2/H3;
+  - author card reusing `FounderAvatar` with `contact@bellanbaby.shop`;
+  - FAQ section with `FAQPage` + `Article` JSON-LD;
+  - `AdSenseSlot` (self-suppresses under 1,200 words) and `AffiliateDisclosure`;
+  - per-route `head()` with title, description, canonical, `og:*`/`twitter:*` using the cover image URL.
+- `SiteHeader` nav gains `{ to: "/blog", label: "Blog" }` in both desktop and mobile lists.
 
-Each is a markdown file in `src/content/blog/` with complete front matter, 1,500+ words, H2/H3 structure, a GOTS/OEKO-TEX fabric & care matrix table, 5 FAQ blocks, internal links to `/trends`, `/lookbook` and sibling articles, and an "Editor's Styling Note" signed Thushara Sanjeewa.
+## Notes
 
-1. The Quiet Luxury Edit: Autumn 2026 Capsule Wardrobes for Modern Women
-2. Elevated Streetwear for Kids: Combining Playful Comfort with High Fashion
-3. Regal Maximalism & Royal Purple: How SS26/FW26 Runway Trends Dominate Street Style
-4. The '90s Slip-Dress Revival: Day-to-Night Styling for the Modern Minimalist
-5. Tailored Loungewear & Elevated Silk Sets: Comfort Meets Executive Elegance
-
-Claims stay factual and general (fibre properties, certification meanings, styling guidance) — no invented brand prices, lab results, or testimonials.
-
-## Compliance & verification
-
-- Text-heavy layouts, single H1 per page, alt text on every image, lazy-loaded body imagery.
-- Ads only via `AdSenseSlot`, which already suppresses itself under 1,200 words.
-- Finish with a typecheck plus a browser pass over `/blog` and one article to confirm zero route/import errors and that the CMS post renders next to the new five.
+- Portable Text needs `@portabletext/react` to render rich body content; I'll add it alongside the Sanity packages.
+- The existing markdown file in `src/content/blog/` and the Decap admin config stay untouched — say the word if you'd rather retire the markdown/Decap path now that Sanity is the source of truth.
+- Finish with a typecheck and a browser pass over `/blog` and one article to confirm no route or import errors.
