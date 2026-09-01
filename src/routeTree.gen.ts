@@ -23,6 +23,7 @@ import { Route as TrendsCountryRouteImport } from './routes/trends_.$country'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/editorial.wide-leg-trousers-2026'
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
@@ -95,6 +96,11 @@ const EditorialSlugRoute = EditorialSlugRouteImport.update({
   path: '/editorial/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog_/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/blog_/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/blog_/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
@@ -207,6 +219,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrendsRoute: typeof TrendsRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
   JournalSlugRoute: typeof JournalSlugRoute
@@ -313,6 +326,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorialSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog_/$slug': {
+      id: '/blog_/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -327,6 +347,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrendsRoute: TrendsRoute,
+  BlogSlugRoute: BlogSlugRoute,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
   JournalSlugRoute: JournalSlugRoute,
