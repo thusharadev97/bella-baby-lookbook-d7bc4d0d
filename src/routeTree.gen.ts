@@ -13,6 +13,7 @@ import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as MagazineRouteImport } from './routes/magazine'
 import { Route as LookbookRouteImport } from './routes/lookbook'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -43,6 +44,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MagazineRoute = MagazineRouteImport.update({
+  id: '/magazine',
+  path: '/magazine',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LookbookRoute = LookbookRouteImport.update({
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
+  '/magazine': typeof MagazineRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
+  '/magazine': typeof MagazineRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -144,6 +152,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
+  '/magazine': typeof MagazineRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/lookbook'
+    | '/magazine'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -180,6 +190,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/lookbook'
+    | '/magazine'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/lookbook'
+    | '/magazine'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   LookbookRoute: typeof LookbookRoute
+  MagazineRoute: typeof MagazineRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/magazine': {
+      id: '/magazine'
+      path: '/magazine'
+      fullPath: '/magazine'
+      preLoaderRoute: typeof MagazineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lookbook': {
@@ -343,6 +363,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   LookbookRoute: LookbookRoute,
+  MagazineRoute: MagazineRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
