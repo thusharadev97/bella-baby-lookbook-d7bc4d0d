@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      article_submissions: {
+        Row: {
+          author_id: string
+          body: string
+          category: string
+          cover_image_url: string | null
+          created_at: string
+          decided_at: string | null
+          excerpt: string | null
+          id: string
+          keywords: string | null
+          region_focus: string | null
+          slug: string | null
+          status: Database["public"]["Enums"]["submission_status"]
+          submitted_at: string
+          title: string
+          updated_at: string
+          word_count: number
+        }
+        Insert: {
+          author_id: string
+          body: string
+          category: string
+          cover_image_url?: string | null
+          created_at?: string
+          decided_at?: string | null
+          excerpt?: string | null
+          id?: string
+          keywords?: string | null
+          region_focus?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          submitted_at?: string
+          title: string
+          updated_at?: string
+          word_count?: number
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          category?: string
+          cover_image_url?: string | null
+          created_at?: string
+          decided_at?: string | null
+          excerpt?: string | null
+          id?: string
+          keywords?: string | null
+          region_focus?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          submitted_at?: string
+          title?: string
+          updated_at?: string
+          word_count?: number
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
@@ -34,6 +91,71 @@ export type Database = {
           source?: string | null
         }
         Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          contact_email: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          contact_email?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          contact_email?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      submission_reviews: {
+        Row: {
+          created_at: string
+          decision: Database["public"]["Enums"]["submission_status"]
+          id: string
+          message: string | null
+          reviewer_id: string
+          submission_id: string
+        }
+        Insert: {
+          created_at?: string
+          decision: Database["public"]["Enums"]["submission_status"]
+          id?: string
+          message?: string | null
+          reviewer_id: string
+          submission_id: string
+        }
+        Update: {
+          created_at?: string
+          decision?: Database["public"]["Enums"]["submission_status"]
+          id?: string
+          message?: string | null
+          reviewer_id?: string
+          submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "submission_reviews_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "article_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       trending_keywords: {
         Row: {
@@ -71,15 +193,50 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_editorial_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor" | "contributor"
+      submission_status:
+        | "draft"
+        | "submitted"
+        | "in_review"
+        | "needs_revision"
+        | "approved"
+        | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -206,6 +363,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor", "contributor"],
+      submission_status: [
+        "draft",
+        "submitted",
+        "in_review",
+        "needs_revision",
+        "approved",
+        "rejected",
+      ],
+    },
   },
 } as const
