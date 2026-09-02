@@ -129,17 +129,26 @@ export const Route = createFileRoute("/blog_/$slug")({
 const components: PortableTextComponents = {
   block: {
     h1: ({ children, value }) => (
-      <h2 id={slugifyHeading(blockText(value as PortableBlock))} className="h2 scroll-mt-28">
+      <h2
+        id={slugifyHeading(blockText(value as unknown as PortableBlock))}
+        className="h2 scroll-mt-28"
+      >
         {children}
       </h2>
     ),
     h2: ({ children, value }) => (
-      <h2 id={slugifyHeading(blockText(value as PortableBlock))} className="h2 scroll-mt-28">
+      <h2
+        id={slugifyHeading(blockText(value as unknown as PortableBlock))}
+        className="h2 scroll-mt-28"
+      >
         {children}
       </h2>
     ),
     h3: ({ children, value }) => (
-      <h3 id={slugifyHeading(blockText(value as PortableBlock))} className="h3 scroll-mt-28">
+      <h3
+        id={slugifyHeading(blockText(value as unknown as PortableBlock))}
+        className="h3 scroll-mt-28"
+      >
         {children}
       </h3>
     ),
