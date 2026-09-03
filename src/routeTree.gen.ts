@@ -21,6 +21,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrendsCountryRouteImport } from './routes/trends_.$country'
+import { Route as MagazineCategoryRouteImport } from './routes/magazine.$category'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/editorial.wide-leg-trousers-2026'
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
@@ -86,6 +87,11 @@ const TrendsCountryRoute = TrendsCountryRouteImport.update({
   path: '/trends/$country',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MagazineCategoryRoute = MagazineCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => MagazineRoute,
+} as any)
 const JournalSlugRoute = JournalSlugRouteImport.update({
   id: '/journal/$slug',
   path: '/journal/$slug',
@@ -115,7 +121,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesByTo {
@@ -133,7 +140,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesById {
@@ -152,7 +160,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends_/$country': typeof TrendsCountryRoute
 }
 export interface FileRouteTypes {
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends/$country'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends/$country'
   id:
     | '__root__'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends_/$country'
   fileRoutesById: FileRoutesById
 }
@@ -227,7 +239,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   LookbookRoute: typeof LookbookRoute
-  MagazineRoute: typeof MagazineRoute
+  MagazineRoute: typeof MagazineRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -325,6 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrendsCountryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/magazine/$category': {
+      id: '/magazine/$category'
+      path: '/$category'
+      fullPath: '/magazine/$category'
+      preLoaderRoute: typeof MagazineCategoryRouteImport
+      parentRoute: typeof MagazineRoute
+    }
     '/journal/$slug': {
       id: '/journal/$slug'
       path: '/journal/$slug'
@@ -356,6 +375,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MagazineRouteChildren {
+  MagazineCategoryRoute: typeof MagazineCategoryRoute
+}
+
+const MagazineRouteChildren: MagazineRouteChildren = {
+  MagazineCategoryRoute: MagazineCategoryRoute,
+}
+
+const MagazineRouteWithChildren = MagazineRoute._addFileChildren(
+  MagazineRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -363,7 +394,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   LookbookRoute: LookbookRoute,
-  MagazineRoute: MagazineRoute,
+  MagazineRoute: MagazineRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
