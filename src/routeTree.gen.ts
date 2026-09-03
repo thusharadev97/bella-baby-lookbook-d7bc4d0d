@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WriteForUsRouteImport } from './routes/write-for-us'
 import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -18,14 +19,24 @@ import { Route as LookbookRouteImport } from './routes/lookbook'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrendsCountryRouteImport } from './routes/trends_.$country'
+import { Route as MagazineCategoryRouteImport } from './routes/magazine.$category'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/editorial.wide-leg-trousers-2026'
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
+import { Route as AuthenticatedContributorRouteImport } from './routes/_authenticated/contributor'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const WriteForUsRoute = WriteForUsRouteImport.update({
+  id: '/write-for-us',
+  path: '/write-for-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
@@ -71,9 +82,18 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,6 +105,11 @@ const TrendsCountryRoute = TrendsCountryRouteImport.update({
   id: '/trends_/$country',
   path: '/trends/$country',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MagazineCategoryRoute = MagazineCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => MagazineRoute,
 } as any)
 const JournalSlugRoute = JournalSlugRouteImport.update({
   id: '/journal/$slug',
@@ -107,60 +132,87 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedContributorRoute =
+  AuthenticatedContributorRouteImport.update({
+    id: '/contributor',
+    path: '/contributor',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/contributor': typeof AuthenticatedContributorRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/contributor': typeof AuthenticatedContributorRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/lookbook': typeof LookbookRoute
-  '/magazine': typeof MagazineRoute
+  '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/contributor': typeof AuthenticatedContributorRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
   '/journal/$slug': typeof JournalSlugRoute
+  '/magazine/$category': typeof MagazineCategoryRoute
   '/trends_/$country': typeof TrendsCountryRoute
 }
 export interface FileRouteTypes {
@@ -168,6 +220,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/disclaimer'
@@ -177,15 +230,20 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
+    | '/admin'
+    | '/contributor'
     | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends/$country'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/disclaimer'
@@ -195,15 +253,21 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
+    | '/admin'
+    | '/contributor'
     | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends/$country'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/disclaimer'
@@ -213,25 +277,32 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
+    | '/_authenticated/admin'
+    | '/_authenticated/contributor'
     | '/blog_/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
     | '/journal/$slug'
+    | '/magazine/$category'
     | '/trends_/$country'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   LookbookRoute: typeof LookbookRoute
-  MagazineRoute: typeof MagazineRoute
+  MagazineRoute: typeof MagazineRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrendsRoute: typeof TrendsRoute
+  WriteForUsRoute: typeof WriteForUsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
@@ -241,6 +312,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/write-for-us': {
+      id: '/write-for-us'
+      path: '/write-for-us'
+      fullPath: '/write-for-us'
+      preLoaderRoute: typeof WriteForUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trends': {
       id: '/trends'
       path: '/trends'
@@ -304,11 +382,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -324,6 +416,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trends/$country'
       preLoaderRoute: typeof TrendsCountryRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/magazine/$category': {
+      id: '/magazine/$category'
+      path: '/$category'
+      fullPath: '/magazine/$category'
+      preLoaderRoute: typeof MagazineCategoryRouteImport
+      parentRoute: typeof MagazineRoute
     }
     '/journal/$slug': {
       id: '/journal/$slug'
@@ -353,21 +452,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/contributor': {
+      id: '/_authenticated/contributor'
+      path: '/contributor'
+      fullPath: '/contributor'
+      preLoaderRoute: typeof AuthenticatedContributorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedContributorRoute: typeof AuthenticatedContributorRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedContributorRoute: AuthenticatedContributorRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+interface MagazineRouteChildren {
+  MagazineCategoryRoute: typeof MagazineCategoryRoute
+}
+
+const MagazineRouteChildren: MagazineRouteChildren = {
+  MagazineCategoryRoute: MagazineCategoryRoute,
+}
+
+const MagazineRouteWithChildren = MagazineRoute._addFileChildren(
+  MagazineRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   LookbookRoute: LookbookRoute,
-  MagazineRoute: MagazineRoute,
+  MagazineRoute: MagazineRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrendsRoute: TrendsRoute,
+  WriteForUsRoute: WriteForUsRoute,
   BlogSlugRoute: BlogSlugRoute,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
