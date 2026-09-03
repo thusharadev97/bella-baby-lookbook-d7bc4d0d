@@ -30,6 +30,7 @@ import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/edito
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as AuthenticatedContributorRouteImport } from './routes/_authenticated/contributor'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const WriteForUsRoute = WriteForUsRouteImport.update({
   id: '/write-for-us',
@@ -137,6 +138,11 @@ const AuthenticatedContributorRoute =
     path: '/contributor',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/contributor': typeof AuthenticatedContributorRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
@@ -174,6 +181,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/contributor': typeof AuthenticatedContributorRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/contributor': typeof AuthenticatedContributorRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trends'
     | '/write-for-us'
+    | '/admin'
     | '/contributor'
     | '/blog/$slug'
     | '/editorial/$slug'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trends'
     | '/write-for-us'
+    | '/admin'
     | '/contributor'
     | '/blog/$slug'
     | '/editorial/$slug'
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trends'
     | '/write-for-us'
+    | '/_authenticated/admin'
     | '/_authenticated/contributor'
     | '/blog_/$slug'
     | '/editorial/$slug'
@@ -447,14 +459,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedContributorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedContributorRoute: typeof AuthenticatedContributorRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedContributorRoute: AuthenticatedContributorRoute,
 }
 
