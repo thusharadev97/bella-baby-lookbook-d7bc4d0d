@@ -6,6 +6,7 @@ export default defineConfig({
   title: 'Bella & Baby',
   projectId: 'ktdhlkkl',
   dataset: 'production',
+  basePath: '/studio',
   plugins: [structureTool()],
   schema: {
     types: [],
