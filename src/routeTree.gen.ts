@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WriteForUsRouteImport } from './routes/write-for-us'
 import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -27,6 +28,11 @@ import { Route as EditorialWideLegTrousers2026RouteImport } from './routes/edito
 import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 
+const WriteForUsRoute = WriteForUsRouteImport.update({
+  id: '/write-for-us',
+  path: '/write-for-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trends': typeof TrendsRoute
+  '/write-for-us': typeof WriteForUsRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/editorial/$slug': typeof EditorialSlugRoute
   '/editorial/wide-leg-trousers-2026': typeof EditorialWideLegTrousers2026Route
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
     | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
     | '/blog/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/trends'
+    | '/write-for-us'
     | '/blog_/$slug'
     | '/editorial/$slug'
     | '/editorial/wide-leg-trousers-2026'
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrendsRoute: typeof TrendsRoute
+  WriteForUsRoute: typeof WriteForUsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   EditorialSlugRoute: typeof EditorialSlugRoute
   EditorialWideLegTrousers2026Route: typeof EditorialWideLegTrousers2026Route
@@ -253,6 +266,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/write-for-us': {
+      id: '/write-for-us'
+      path: '/write-for-us'
+      fullPath: '/write-for-us'
+      preLoaderRoute: typeof WriteForUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trends': {
       id: '/trends'
       path: '/trends'
@@ -399,6 +419,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrendsRoute: TrendsRoute,
+  WriteForUsRoute: WriteForUsRoute,
   BlogSlugRoute: BlogSlugRoute,
   EditorialSlugRoute: EditorialSlugRoute,
   EditorialWideLegTrousers2026Route: EditorialWideLegTrousers2026Route,
