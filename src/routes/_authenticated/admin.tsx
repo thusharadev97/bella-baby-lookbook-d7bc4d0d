@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
       { property: "og:description", content: "Review contributor submissions." },
     ],
   }),
-  component: AdminQueue;
+  component: AdminQueue,
 });
 
 const DECISIONS: { value: "in_review" | "needs_revision" | "approved" | "rejected"; label: string }[] = [
