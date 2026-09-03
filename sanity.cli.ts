@@ -4,5 +4,6 @@ export default defineCliConfig({
   api: {
     projectId: 'ktdhlkkl',
     dataset: 'production'
-  }
+  },
+  studioHost: 'bella-baby'
 })
