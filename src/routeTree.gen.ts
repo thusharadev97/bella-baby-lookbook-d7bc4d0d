@@ -31,6 +31,7 @@ import { Route as EditorialSlugRouteImport } from './routes/editorial.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as AuthenticatedContributorRouteImport } from './routes/_authenticated/contributor'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedContributorDashboardRouteImport } from './routes/_authenticated/contributor_.dashboard'
 
 const WriteForUsRoute = WriteForUsRouteImport.update({
   id: '/write-for-us',
@@ -143,6 +144,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedContributorDashboardRoute =
+  AuthenticatedContributorDashboardRouteImport.update({
+    id: '/contributor_/dashboard',
+    path: '/contributor/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/journal/$slug': typeof JournalSlugRoute
   '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
+  '/contributor/dashboard': typeof AuthenticatedContributorDashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -189,6 +197,7 @@ export interface FileRoutesByTo {
   '/journal/$slug': typeof JournalSlugRoute
   '/magazine/$category': typeof MagazineCategoryRoute
   '/trends/$country': typeof TrendsCountryRoute
+  '/contributor/dashboard': typeof AuthenticatedContributorDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -214,6 +223,7 @@ export interface FileRoutesById {
   '/journal/$slug': typeof JournalSlugRoute
   '/magazine/$category': typeof MagazineCategoryRoute
   '/trends_/$country': typeof TrendsCountryRoute
+  '/_authenticated/contributor_/dashboard': typeof AuthenticatedContributorDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/journal/$slug'
     | '/magazine/$category'
     | '/trends/$country'
+    | '/contributor/dashboard'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/journal/$slug'
     | '/magazine/$category'
     | '/trends/$country'
+    | '/contributor/dashboard'
   id:
     | '__root__'
     | '/'
@@ -286,6 +298,7 @@ export interface FileRouteTypes {
     | '/journal/$slug'
     | '/magazine/$category'
     | '/trends_/$country'
+    | '/_authenticated/contributor_/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -466,17 +479,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/contributor_/dashboard': {
+      id: '/_authenticated/contributor_/dashboard'
+      path: '/contributor/dashboard'
+      fullPath: '/contributor/dashboard'
+      preLoaderRoute: typeof AuthenticatedContributorDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedContributorRoute: typeof AuthenticatedContributorRoute
+  AuthenticatedContributorDashboardRoute: typeof AuthenticatedContributorDashboardRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedContributorRoute: AuthenticatedContributorRoute,
+  AuthenticatedContributorDashboardRoute:
+    AuthenticatedContributorDashboardRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
