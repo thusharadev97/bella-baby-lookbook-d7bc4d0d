@@ -1,48 +1,17 @@
-import { createServerFn } from "@tanstack/start";
+import { createServerFn } from "@tanstack/react-start";
+import { createClient } from "@supabase/supabase-js";
 
-export const STATUS_LABEL: Record<string, string> = {
-  draft: "Draft",
-  submitted: "Submitted",
-  approved: "Approved",
-  rejected: "Rejected",
-};
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "";
 
-export function parseBacklinks(text: string): string[] {
-  if (!text) return [];
-  return text
-    .split(/[\n,]+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
-export const getMyEditorialAccess = createServerFn({ method: "GET" }).handler(
-  async () => {
-    return { hasAccess: true };
-  }
-);
-
-export const listMySubmissions = createServerFn({ method: "GET" }).handler(
-  async () => {
-    return [];
-  }
-);
-
-export const listSubmissionQueue = createServerFn({ method: "GET" }).handler(
-  async () => {
-    return [];
-  }
-);
-
-export const saveSubmission = createServerFn({ method: "POST" })
-  .validator((d: unknown) => d)
+export const submitArticle = createServerFn({ method: "POST" })
+  .validator((data: { title: string; content: string; authorId?: string }) => data)
   .handler(async ({ data }) => {
-    return { success: true, data };
-  });
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { data: result, error } = await supabase
+      .from("submissions")
+      .insert([data]);
 
-export const decideSubmission = createServerFn({ method: "POST" })
-  .validator((d: unknown) => d)
-  .handler(async ({ data }) => {
-    return { success: true, data };
+    if (error) throw new Error(error.message);
+    return result;
   });
-
-export const createSubmission = saveSubmission;

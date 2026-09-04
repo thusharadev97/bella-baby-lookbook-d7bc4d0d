@@ -6,7 +6,7 @@ import type { Database } from "@/integrations/supabase/types";
 const schema = z.object({ country: z.string().trim().min(2).max(4).toUpperCase() });
 
 export const getTrendingKeywords = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) => schema.parse(input))
+  .validator((input: unknown) => schema.parse(input))
   .handler(async ({ data }) => {
     const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
     const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
