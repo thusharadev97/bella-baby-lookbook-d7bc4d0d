@@ -75,7 +75,7 @@ function Disclaimer() {
         <div>
           <h2 className="font-display text-3xl text-[var(--color-ink)]">Contact</h2>
           <p className="mt-4">
-            Questions about this disclaimer may be sent to <a className="underline" href="mailto:info.bellanadbaby.com">info.bellanadbaby.com</a>.
+            Questions about this disclaimer may be sent to <a className="underline" href="mailto:info@coreleadmedia.com">info@coreleadmedia.com</a>.
           </p>
         </div>
       </section>

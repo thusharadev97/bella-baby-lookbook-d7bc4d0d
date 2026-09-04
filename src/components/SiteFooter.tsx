@@ -43,8 +43,8 @@ export function SiteFooter() {
           <div className="eyebrow">Headquarters</div>
           <div className="mt-5 text-sm text-[var(--color-ink)]/80">
             <span className="block text-[10px] uppercase tracking-[0.24em] text-[var(--color-taupe)]">Official Mail</span>
-            <a href="mailto:info.bellanadbaby.com" className="hover:text-[var(--color-ink)]">
-              info.bellanadbaby.com
+            <a href="mailto:info@coreleadmedia.com" className="hover:text-[var(--color-ink)]">
+              info@coreleadmedia.com
             </a>
           </div>
           <div className="mt-4 text-sm text-[var(--color-ink)]/80">

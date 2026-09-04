@@ -35,8 +35,8 @@ function Contact() {
             <div className="eyebrow">Email</div>
             <div className="mt-4 flex items-start gap-4">
               <Mail className="mt-1 h-5 w-5 text-[var(--color-taupe)]" />
-              <a href="mailto:info.bellanadbaby.com" className="font-display text-2xl text-[var(--color-ink)] hover:italic">
-                info.bellanadbaby.com
+              <a href="mailto:info@coreleadmedia.com" className="font-display text-2xl text-[var(--color-ink)] hover:italic">
+                info@coreleadmedia.com
               </a>
             </div>
           </div>

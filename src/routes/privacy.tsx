@@ -141,7 +141,7 @@ function Privacy() {
             <p className="mt-4">
               California residents may request access to, correction of, or deletion
               of their personal information at any time by writing to us at
-              info.bellanadbaby.com. We do not discriminate against readers who
+              info@coreleadmedia.com. We do not discriminate against readers who
               exercise these rights.
             </p>
           </div>

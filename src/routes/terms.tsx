@@ -94,7 +94,7 @@ const sections: { id: string; title: string; body: string[] }[] = [
     id: "contact",
     title: "10. Contact",
     body: [
-      "Questions about these terms, licensing requests, or corrections may be sent to info.bellanadbaby.com. We aim to respond to editorial and legal correspondence within five business days.",
+      "Questions about these terms, licensing requests, or corrections may be sent to info@coreleadmedia.com. We aim to respond to editorial and legal correspondence within five business days.",
     ],
   },
 ];
