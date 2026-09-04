@@ -16,7 +16,11 @@ export type Database = {
     Tables: {
       article_submissions: {
         Row: {
+          admin_notes: string | null
+          author_email: string | null
           author_id: string
+          author_name: string | null
+          backlinks: Json
           body: string
           category: string
           cover_image_url: string | null
@@ -34,7 +38,11 @@ export type Database = {
           word_count: number
         }
         Insert: {
+          admin_notes?: string | null
+          author_email?: string | null
           author_id: string
+          author_name?: string | null
+          backlinks?: Json
           body: string
           category: string
           cover_image_url?: string | null
@@ -52,7 +60,11 @@ export type Database = {
           word_count?: number
         }
         Update: {
+          admin_notes?: string | null
+          author_email?: string | null
           author_id?: string
+          author_name?: string | null
+          backlinks?: Json
           body?: string
           category?: string
           cover_image_url?: string | null
@@ -121,6 +133,44 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      submission_notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          recipient: string
+          status: string
+          subject: string
+          submission_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          recipient: string
+          status?: string
+          subject: string
+          submission_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          recipient?: string
+          status?: string
+          subject?: string
+          submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "submission_notifications_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "article_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       submission_reviews: {
         Row: {
