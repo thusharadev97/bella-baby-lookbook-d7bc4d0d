@@ -105,3 +105,14 @@ export async function decideSubmission(id: string, status: "approved" | "rejecte
   if (error) throw error;
   return data;
 }
+
+// Missing exports for contributor dashboard & Vercel build
+export function parseBacklinks(text: string): string[] {
+  if (!text) return [];
+  return text
+    .split(/[\n,]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+export const saveSubmission = typeof createSubmission !== 'undefined' ? createSubmission : async () => {};
