@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { SubmissionQueue } from '~/components/SubmissionQueue'
+import { SubmissionQueue } from '../../components/SubmissionQueue'
 
 export const Route = createFileRoute('/admin/queue')({
   component: AdminQueuePage,

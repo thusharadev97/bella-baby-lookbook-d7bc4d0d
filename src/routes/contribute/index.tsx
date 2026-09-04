@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ContributorAuthForm } from '~/components/ContributorAuthForm'
+import { ContributorAuthForm } from '../../components/ContributorAuthForm'
 
 export const Route = createFileRoute('/contribute/')({
   component: ContributeIndex,

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { SubmissionForm } from '~/components/SubmissionForm'
+import { SubmissionForm } from '../../components/SubmissionForm'
 
 export const Route = createFileRoute('/contribute/submit')({
   component: SubmitArticlePage,
