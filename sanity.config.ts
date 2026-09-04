@@ -12,8 +12,16 @@ export default defineConfig({
 
   plugins: [
     structureTool(),
-    unsplashAssetSource(),
   ],
+
+  form: {
+    image: {
+      assetSources: (previous) => {
+        // Add Unsplash source properly as an asset source array item
+        return [...previous, unsplashAssetSource]
+      },
+    },
+  },
 
   schema: {
     types: schemaTypes,
