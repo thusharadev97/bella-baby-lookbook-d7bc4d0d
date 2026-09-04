@@ -183,12 +183,6 @@ export const getMyEditorialAccess = createServerFn({ method: "GET" })
     };
   });
 
-type AuthedSupabase = Parameters<
-  Parameters<ReturnType<typeof createServerFn>["handler"]>[0]
-> extends never
-  ? never
-  : never;
-
 async function assertStaff(
   supabase: { rpc: (fn: "is_editorial_staff", args: { _user_id: string }) => PromiseLike<{ data: boolean | null; error: { message: string } | null }> },
   userId: string,
@@ -267,5 +261,3 @@ export const decideSubmission = createServerFn({ method: "POST" })
 
     return { ok: true, decision: data.decision };
   });
-
-export type { AuthedSupabase };
