@@ -1,8 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database, Json } from "@/integrations/supabase/types";
 
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "";
+export type SubmissionStatus = Database["public"]["Enums"]["submission_status"];
+export type SubmissionRow = Database["public"]["Tables"]["article_submissions"]["Row"];
+export type ReviewRow = Database["public"]["Tables"]["submission_reviews"]["Row"];
+export type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 
 export const submitArticle = createServerFn({ method: "POST" })
   .validator((data: { title: string; category: string; content: string; authorName?: string }) => data)
