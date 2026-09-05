@@ -82,13 +82,13 @@ function WriteForUsPage() {
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               to="/auth"
-              search={{ redirect: "/contributor" }}
+              search={{ redirect: "/contributor/dashboard" }}
               className="border border-[var(--color-ink)] px-8 py-3 text-[11px] uppercase tracking-[0.28em] transition hover:bg-[var(--color-ink)] hover:text-[var(--color-cream)]"
             >
               Create a contributor account
             </Link>
             <Link
-              to="/contributor"
+              to="/contributor/dashboard"
               className="border border-[var(--color-ink)]/25 px-8 py-3 text-[11px] uppercase tracking-[0.28em] transition hover:border-[var(--color-ink)]"
             >
               Submit an article
