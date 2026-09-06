@@ -4,6 +4,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { PageShell } from "@/components/PageShell";
+import { CoverImageUpload } from "@/components/CoverImageUpload";
+import { KeywordChips } from "@/components/KeywordChips";
 import { supabase } from "@/integrations/supabase/client";
 import { MAGAZINE_CATEGORIES } from "@/data/magazine";
 import {
@@ -205,24 +207,14 @@ function ContributorStudio() {
               </label>
 
               <div className="grid gap-6 sm:grid-cols-2">
-                <label className="block">
-                  <span className="eyebrow">Cover image URL</span>
-                  <input
-                    value={form.coverImageUrl}
-                    onChange={(e) => setForm({ ...form, coverImageUrl: e.target.value })}
-                    className="mt-2 w-full border-b border-[var(--color-ink)]/25 bg-transparent py-2 text-[14px] outline-none focus:border-[var(--color-ink)]"
-                    placeholder="https://…"
-                  />
-                </label>
-                <label className="block">
-                  <span className="eyebrow">Target keywords</span>
-                  <input
-                    value={form.keywords}
-                    onChange={(e) => setForm({ ...form, keywords: e.target.value })}
-                    className="mt-2 w-full border-b border-[var(--color-ink)]/25 bg-transparent py-2 text-[14px] outline-none focus:border-[var(--color-ink)]"
-                    placeholder="quiet luxury blazer, unlined tailoring"
-                  />
-                </label>
+                <CoverImageUpload
+                  value={form.coverImageUrl || null}
+                  onChange={(url) => setForm({ ...form, coverImageUrl: url ?? "" })}
+                />
+                <KeywordChips
+                  value={form.keywords ? form.keywords.split(",").map((k) => k.trim()).filter(Boolean) : []}
+                  onChange={(kws) => setForm({ ...form, keywords: kws.join(", ") })}
+                />
               </div>
 
               <button
