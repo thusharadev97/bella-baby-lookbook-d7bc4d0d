@@ -32,6 +32,7 @@ export function SiteFooter() {
             <li><Link to="/about" className="hover:text-[var(--color-ink)]">About</Link></li>
             <li><Link to="/trends" className="hover:text-[var(--color-ink)]">Trends</Link></li>
             <li><Link to="/lookbook" className="hover:text-[var(--color-ink)]">Lookbook</Link></li>
+            <li><Link to="/contributor" className="hover:text-[var(--color-ink)]">Become a Contributor</Link></li>
             <li><Link to="/contact" className="hover:text-[var(--color-ink)]">Contact</Link></li>
             <li><Link to="/privacy" className="hover:text-[var(--color-ink)]">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-[var(--color-ink)]">Terms of Service</Link></li>
