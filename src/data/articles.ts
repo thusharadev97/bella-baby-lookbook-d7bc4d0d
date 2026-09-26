@@ -131,5 +131,65 @@ export const articles: Article[] = [
     "excerpt": "How rigid denim, tailored indigo blazers, and dark-wash wide-leg cuts are replacing skinny jeans once and for all.",
     "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1800&q=80",
     "content": "\n### Denim Reimagined as High Tailoring\n\nDenim is undergoing a high-fashion renaissance in 2026. No longer confined to casual weekend attire, dark-wash indigo denim is being elevated into tailored blazers, structured waistcoats, and floor-sweeping wide-leg trousers that fit seamlessly into smart-casual office spaces.\n\n---\n\n### Section 1: The Key Cuts of 2026\n\n1. **Dark Indigo Wide-Leg Trousers:** Crisp, clean stitching with no distressing, offering a trouser-like drape.\n2. **The Structured Denim Blazer:** Tailored at the shoulders with tortoiseshell buttons for refined daily wear.\n3. **The Denim Column Midi Skirt:** Featuring a dramatic front slit for fluid walking movement.\n\n---\n\n### Summary\n\nDark, high-quality tailored denim gives you structured sophistication without sacrificing casual comfort. Upgrade your denim rotations in 2026 for a modern edge.\n"
+  },
+  {
+    "id": "111",
+    "slug": "monochrome-power-suits-2026-guide",
+    "title": "Monochrome Power Suits: Redefining Professional Elegance for Women in 2026",
+    "category": "Ladies Outfit Ideas",
+    "date": "September 16, 2026",
+    "readTime": "12 min read",
+    "author": "Thushara Sanjeewa",
+    "excerpt": "A deep dive into double-breasted silhouettes, relaxed tailoring, and monochrome power moves for executive women.",
+    "image": "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1800&q=80",
+    "content": "\n### The Modern Executive Aesthetic in 2026\n\nThe power suit has undergone a massive transformation. In 2026, professional women are moving away from restrictive, stiff tailoring in favor of fluid, sharp monochrome suits that offer both authority and physical ease.\n\nA well-tailored power suit in a single color tone creates an immediate statement of poise, executive clarity, and modern style.\n\n---\n\n### Section 1: Key Design Innovations in 2026 Power Suiting\n\n1. **Unstructured Shoulders with Defined Chest Architecture:** Modern blazers maintain visual structure while dropping rigid internal shoulder padding.\n2. **Floor-Sweeping Pleated Trousers:** High-waisted trousers that taper slightly over leather pumps create extended height lines.\n3. **Double-Breasted Closures:** Broad front overlaps deliver a strong masculine-meets-feminine silhouette.\n\n---\n\n### Summary\n\nEmbrace single-color power tailoring in 2026 to elevate your professional presence with modern structure and ease.\n"
+  },
+  {
+    "id": "112",
+    "slug": "soft-utility-trend-cargo-trousers-linen-vests-2026",
+    "title": "The Soft Utility Trend: Functional Cargo Trousers & Structured Linen Vests",
+    "category": "Ladies Outfit Ideas",
+    "date": "September 15, 2026",
+    "readTime": "11 min read",
+    "author": "Thushara Sanjeewa",
+    "excerpt": "How functional pocketing, breathable linen fabrics, and neutral utility cuts are taking street fashion by storm.",
+    "image": "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1800&q=80",
+    "content": "\n### Utility Reimagined for Everyday Fashion\n\nUtility fashion\u2014historically rooted in military and heavy workwear\u2014is being completely reimagined for women in 2026. The \"Soft Utility\" trend replaces stiff canvas and heavy brass hardware with soft organic linens, drape-friendly Tencel, and delicate tonal closures.\n\nThe result is a functional, highly comfortable wardrobe that looks effortlessly structured.\n\n---\n\n### Section 1: Core Pieces of Soft Utility\n\n* **High-Waisted Fluid Cargo Pants:** Featuring flat streamline pockets rather than bulky side pouches.\n* **Tailored Linen Vests:** Worn solo as a sleek top or open over a tissue-thin silk t-shirt.\n* **Cinched Utility Jackets:** Lightweight outerwear with internal drawstrings to highlight the waistline.\n\n---\n\n### Summary\n\nSoft utility offers the ultimate combination of practical pockets and refined tailoring for urban women on the go.\n"
+  },
+  {
+    "id": "113",
+    "slug": "modern-knitwear-architecture-oversized-sweaters-2026",
+    "title": "Modern Knitwear Architecture: Oversized Sweaters & Ribbed Co-Ord Sets in 2026",
+    "category": "Ladies Outfit Ideas",
+    "date": "September 14, 2026",
+    "readTime": "10 min read",
+    "author": "Thushara Sanjeewa",
+    "excerpt": "Master tactile warmth with chunky ribbed knits, cashmere co-ord sets, and sculptural necklines.",
+    "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1800&q=80",
+    "content": "\n### Tactile Comfort Meets High Design\n\nAs seasonal weather shifts, luxury knitwear becomes the central hero of a stylish woman's wardrobe. In 2026, knitwear goes far beyond basic crewnecks into sculptural architecture, featuring exaggerated cuffs, wide ribbed textures, and matching co-ord sets.\n\n---\n\n### Section 1: How to Style Ribbed Co-Ord Sets\n\nMatching knit sweater-and-trouser sets deliver instant effortless chic. \n\n* **For the Office:** Layer a matching cream ribbed set beneath a long structured wool trench coat and pair with sleek leather boots.\n* **For Travel:** Pair an oversized oat knit co-ord with clean white leather sneakers and a spacious leather tote bag.\n\n---\n\n### Summary\n\nArchitectural knits deliver thermal comfort and high-end texture to your daily rotations.\n"
+  },
+  {
+    "id": "114",
+    "slug": "high-fashion-accessories-gold-chains-totes-2026",
+    "title": "High-Fashion Accessories: Chunky Gold Chains, Structured Totes & Oversized Sunglasses",
+    "category": "Ladies Outfit Ideas",
+    "date": "September 13, 2026",
+    "readTime": "10 min read",
+    "author": "Thushara Sanjeewa",
+    "excerpt": "The definitive guide to anchoring minimalist outfits with bold statement jewelry, premium leather totes, and eyewear.",
+    "image": "https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1800&q=80",
+    "content": "\n### The Finishing Touches That Define Style\n\nEven the most immaculate monochrome or tailored outfit can feel incomplete without strategic accessorizing. In 2026, accessories are designed to ground simple capsule wardrobe pieces with bold polish and personality.\n\n---\n\n### Section 1: The Three Accessory Investments for 2026\n\n1. **Chunky Brushed Gold Chain Necklaces:** Adding warmth and metallic contrast against high crewneck tops and open blazers.\n2. **Structured Architectural Leather Totes:** Boxy, clean-lined totes that accommodate laptops while maintaining sharp silhouette boundaries.\n3. **Oversized Acetate Sunglasses:** Bold square frames that add immediate movie-star intrigue to daily street wear.\n\n---\n\n### Summary\n\nUse high-impact accessories to transform basic outfit combinations into memorable personal statements.\n"
+  },
+  {
+    "id": "115",
+    "slug": "evening-glamour-tailored-velvet-blazers-metallic-skirts-2026",
+    "title": "Evening Glamour: Tailored Velvet Blazers & Liquid Metallic Slip Skirts in 2026",
+    "category": "Ladies Outfit Ideas",
+    "date": "September 12, 2026",
+    "readTime": "11 min read",
+    "author": "Thushara Sanjeewa",
+    "excerpt": "How rich tactile velvet and shimmering metallic textures redefine evening attire for dinner parties and galas.",
+    "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1800&q=80",
+    "content": "\n### Light-Reflecting Textures for Night Outfits\n\nEvening fashion in 2026 plays heavily with light absorption and reflection. Pairing light-absorbing deep velvet with light-reflecting metallic satin creates a captivating visual dialogue for night events.\n\n---\n\n### Section 1: The Ultimate Evening Combination\n\n* **The Top Anchor:** A deep midnight navy or espresso velvet blazer worn buttoned as a top or layered over a sheer lace bralette.\n* **The Bottom Anchor:** A liquid silver or champagne metallic bias-cut midi slip skirt.\n* **The Shoes:** Pointed-toe metallic heels with delicate ankle straps.\n\n---\n\n### Summary\n\nStep into evening occasions with confident tactile contrast by mastering velvet and metallic pairings.\n"
   }
 ];
