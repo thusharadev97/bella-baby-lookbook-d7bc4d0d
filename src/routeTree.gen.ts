@@ -19,8 +19,10 @@ import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as LookbookRouteImport } from './routes/lookbook'
 import { Route as MagazineRouteImport } from './routes/magazine'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as WriteForUsRouteImport } from './routes/write-for-us'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -85,6 +87,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -93,6 +100,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrendsRoute = TrendsRouteImport.update({
@@ -180,8 +192,10 @@ export interface FileRoutesByFullPath {
   '/lookbook': typeof LookbookRoute
   '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -207,8 +221,10 @@ export interface FileRoutesByTo {
   '/lookbook': typeof LookbookRoute
   '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -236,8 +252,10 @@ export interface FileRoutesById {
   '/lookbook': typeof LookbookRoute
   '/magazine': typeof MagazineRouteWithChildren
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/trends': typeof TrendsRoute
   '/write-for-us': typeof WriteForUsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -265,8 +283,10 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/magazine'
     | '/privacy'
+    | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
+    | '/terms-of-service'
     | '/trends'
     | '/write-for-us'
     | '/admin'
@@ -292,8 +312,10 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/magazine'
     | '/privacy'
+    | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
+    | '/terms-of-service'
     | '/trends'
     | '/write-for-us'
     | '/admin'
@@ -320,8 +342,10 @@ export interface FileRouteTypes {
     | '/lookbook'
     | '/magazine'
     | '/privacy'
+    | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
+    | '/terms-of-service'
     | '/trends'
     | '/write-for-us'
     | '/_authenticated/admin'
@@ -349,8 +373,10 @@ export interface RootRouteChildren {
   LookbookRoute: typeof LookbookRoute
   MagazineRoute: typeof MagazineRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   TrendsRoute: typeof TrendsRoute
   WriteForUsRoute: typeof WriteForUsRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -434,6 +460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -446,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/trends': {
@@ -590,8 +630,10 @@ const rootRouteChildren: RootRouteChildren = {
   LookbookRoute: LookbookRoute,
   MagazineRoute: MagazineRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   TrendsRoute: TrendsRoute,
   WriteForUsRoute: WriteForUsRoute,
   BlogSlugRoute: BlogSlugRoute,
