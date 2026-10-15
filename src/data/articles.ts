@@ -193,3 +193,6 @@ export const articles: Article[] = [
     "content": "\n### Light-Reflecting Textures for Night Outfits\n\nEvening fashion in 2026 plays heavily with light absorption and reflection. Pairing light-absorbing deep velvet with light-reflecting metallic satin creates a captivating visual dialogue for night events.\n\n---\n\n### Section 1: The Ultimate Evening Combination\n\n* **The Top Anchor:** A deep midnight navy or espresso velvet blazer worn buttoned as a top or layered over a sheer lace bralette.\n* **The Bottom Anchor:** A liquid silver or champagne metallic bias-cut midi slip skirt.\n* **The Shoes:** Pointed-toe metallic heels with delicate ankle straps.\n\n---\n\n### Summary\n\nStep into evening occasions with confident tactile contrast by mastering velvet and metallic pairings.\n"
   }
 ];
+
+// Journal helpers (backed by articles.json) used by /journal, /lookbook, PostCard and sitemap.
+export { getArticleBySlug, getSlugForPost, allArticleSlugs, readingMinutes } from "./journalArticles";
