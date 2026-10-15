@@ -3,7 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { FadeIn } from "@/components/FadeIn";
 import { getArticleBySlug, getSlugForPost, readingMinutes } from "@/data/articles";
 import { posts, type Post } from "@/data/posts";
-import type { Article } from "@/data/articles";
+import type { Article } from "@/data/journalArticles";
 import founderAsset from "@/assets/founder.jpg.asset.json";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 
