@@ -194,5 +194,6 @@ export const articles: Article[] = [
   }
 ];
 
-// Journal helpers (backed by articles.json) used by /journal, /lookbook, PostCard and sitemap.
+// Journal helpers (backed by articles.json) used by /journal/$slug, /lookbook, PostCard and the sitemap.
+// Required for the Vercel build: these names must be exported from this module.
 export { getArticleBySlug, getSlugForPost, allArticleSlugs, readingMinutes } from "./journalArticles";
